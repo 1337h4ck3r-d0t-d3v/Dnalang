@@ -6,179 +6,189 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { Separator } from "@/components/ui/separator"
 import {
-  Activity,
-  Zap,
   TrendingUp,
   Users,
-  Code,
   Brain,
-  Lock,
-  Coins,
   BarChart3,
-  GitBranch,
-  Play,
-  Pause,
-  RotateCcw,
-  MessageSquare,
-  Video,
-  Share2,
+  Building2,
+  Shield,
+  Target,
+  Crown,
+  Briefcase,
+  Award,
+  Rocket,
+  DollarSign,
+  Handshake,
+  Calendar,
+  CheckCircle,
+  Star,
+  Trophy,
+  Gem,
+  Banknote,
+  ArrowUp,
   Eye,
-  Edit3,
-  Save,
-  UserPlus,
-  Merge,
-  GitMerge,
-  AlertTriangle,
-  X,
-  Send,
+  Clock,
+  Calculator,
+  LineChart,
 } from "lucide-react"
 
-// Mock collaboration data
-const mockCollaborators = [
+// Mock acquisition data
+const acquisitionOffers = [
   {
-    id: 1,
-    name: "Alex Chen",
-    avatar: "/placeholder-user.jpg",
-    status: "online",
-    role: "Lead Developer",
-    currentTask: "Optimizing UserAuth gene",
+    company: "Microsoft",
+    logo: "/placeholder.svg",
+    offer: 1500,
+    premium: 25,
+    synergies: "Azure/GitHub Integration",
+    timeline: "90 days",
+    probability: 85,
+    strategic_fit: 95,
+    color: "text-blue-400",
+    bg: "bg-blue-400/10",
+    border: "border-blue-400",
   },
   {
-    id: 2,
-    name: "Sarah Kim",
-    avatar: "/placeholder-user.jpg",
-    status: "online",
-    role: "Security Expert",
-    currentTask: "Adding immune responses",
+    company: "Amazon",
+    logo: "/placeholder.svg",
+    offer: 1300,
+    premium: 18,
+    synergies: "AWS Cloud Platform",
+    timeline: "120 days",
+    probability: 78,
+    strategic_fit: 88,
+    color: "text-orange-400",
+    bg: "bg-orange-400/10",
+    border: "border-orange-400",
   },
   {
-    id: 3,
-    name: "Mike Johnson",
-    avatar: "/placeholder-user.jpg",
-    status: "away",
-    role: "Performance Engineer",
-    currentTask: "Database optimization",
+    company: "Google",
+    logo: "/placeholder.svg",
+    offer: 1200,
+    premium: 15,
+    synergies: "AI/ML Enhancement",
+    timeline: "105 days",
+    probability: 72,
+    strategic_fit: 82,
+    color: "text-green-400",
+    bg: "bg-green-400/10",
+    border: "border-green-400",
   },
   {
-    id: 4,
-    name: "Lisa Wang",
-    avatar: "/placeholder-user.jpg",
-    status: "online",
-    role: "AI Specialist",
-    currentTask: "Evolution parameters",
+    company: "Oracle",
+    logo: "/placeholder.svg",
+    offer: 1100,
+    premium: 12,
+    synergies: "Enterprise Customer Base",
+    timeline: "150 days",
+    probability: 65,
+    strategic_fit: 75,
+    color: "text-red-400",
+    bg: "bg-red-400/10",
+    border: "border-red-400",
+  },
+  {
+    company: "Salesforce",
+    logo: "/placeholder.svg",
+    offer: 1000,
+    premium: 8,
+    synergies: "Platform Ecosystem",
+    timeline: "180 days",
+    probability: 58,
+    strategic_fit: 70,
+    color: "text-cyan-400",
+    bg: "bg-cyan-400/10",
+    border: "border-cyan-400",
   },
 ]
 
-const mockMessages = [
-  {
-    id: 1,
-    user: "Alex Chen",
-    message: "Just pushed a new mutation to the UserAuth gene",
-    timestamp: "2 min ago",
-    type: "update",
-  },
-  {
-    id: 2,
-    user: "Sarah Kim",
-    message: "I see a potential security vulnerability in line 47",
-    timestamp: "5 min ago",
-    type: "warning",
-  },
-  {
-    id: 3,
-    user: "Mike Johnson",
-    message: "Performance improved by 23% after the latest optimization",
-    timestamp: "8 min ago",
-    type: "success",
-  },
-  {
-    id: 4,
-    user: "Lisa Wang",
-    message: "Evolution fitness reached 94.2% - should we increase complexity?",
-    timestamp: "12 min ago",
-    type: "question",
-  },
+const financialMetrics = {
+  arr: 100000000, // $100M ARR
+  growth_rate: 300, // 300% YoY
+  gross_margin: 85,
+  rule_of_40: 385,
+  cac_ltv_ratio: 30,
+  burn_rate: 2000000, // $2M/month
+  runway: 36, // 36 months
+  valuation: 1500000000, // $1.5B
+}
+
+const marketMetrics = {
+  developers: 100000,
+  enterprises: 500,
+  market_share: 65,
+  countries: 50,
+  organisms: 1000000,
+  patents: 50,
+  partnerships: 15,
+}
+
+const strategicAssets = [
+  { name: "Core Evolution Engine", value: 400, type: "Technology" },
+  { name: "Patent Portfolio", value: 750, type: "IP" },
+  { name: "Developer Network", value: 200, type: "Community" },
+  { name: "Enterprise Contracts", value: 150, type: "Revenue" },
+  { name: "Strategic Partnerships", value: 100, type: "Alliances" },
 ]
 
-const mockConflicts = [
-  {
-    id: 1,
-    file: "user-auth.gene",
-    users: ["Alex Chen", "Sarah Kim"],
-    type: "merge",
-    description: "Both modified authentication logic",
-  },
-  { id: 2, file: "performance.gene", users: ["Mike Johnson"], type: "lock", description: "Currently being optimized" },
-]
-
-export default function DNALangCollaborativePlatform() {
+export default function BillionDollarAcquisitionPlatform() {
   const [currentTime, setCurrentTime] = useState(new Date())
-  const [tokenPrice, setTokenPrice] = useState(0.847)
-  const [isEvolutionActive, setIsEvolutionActive] = useState(true)
-  const [fitnessScore, setFitnessScore] = useState(87.3)
-  const [activeOrganisms, setActiveOrganisms] = useState(1247)
-  const [activeCollaborators, setActiveCollaborators] = useState(4)
-  const [newMessage, setNewMessage] = useState("")
-  const [selectedOrganism, setSelectedOrganism] = useState("ECommerceApp")
-  const [isCollaborating, setIsCollaborating] = useState(true)
+  const [liveValuation, setLiveValuation] = useState(1500000000)
+  const [arrGrowth, setArrGrowth] = useState(100000000)
+  const [activeUsers, setActiveUsers] = useState(100000)
+  const [selectedOffer, setSelectedOffer] = useState(acquisitionOffers[0])
+  const [acquisitionPhase, setAcquisitionPhase] = useState("Due Diligence")
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentTime(new Date())
-      // Simulate real-time updates
-      setTokenPrice((prev) => prev + (Math.random() - 0.5) * 0.01)
-      setFitnessScore((prev) => Math.min(100, prev + (Math.random() - 0.4) * 0.5))
-      setActiveOrganisms((prev) => prev + Math.floor(Math.random() * 3))
-    }, 2000)
+      // Simulate real-time valuation growth
+      setLiveValuation((prev) => prev + Math.floor(Math.random() * 1000000))
+      setArrGrowth((prev) => prev + Math.floor(Math.random() * 100000))
+      setActiveUsers((prev) => prev + Math.floor(Math.random() * 100))
+    }, 3000)
 
     return () => clearInterval(timer)
   }, [])
 
-  const sendMessage = () => {
-    if (newMessage.trim()) {
-      // In a real app, this would send to the collaboration server
-      console.log("Sending message:", newMessage)
-      setNewMessage("")
+  const formatCurrency = (amount: number) => {
+    if (amount >= 1000000000) {
+      return `$${(amount / 1000000000).toFixed(1)}B`
+    } else if (amount >= 1000000) {
+      return `$${(amount / 1000000).toFixed(0)}M`
+    } else if (amount >= 1000) {
+      return `$${(amount / 1000).toFixed(0)}K`
     }
+    return `$${amount}`
   }
 
-  const valuationMilestones = [
-    { value: 10, label: "Genesis", status: "completed" },
-    { value: 50, label: "Early Adoption", status: "completed" },
-    { value: 100, label: "Product-Market Fit", status: "current" },
-    { value: 250, label: "Scaling Phase", status: "upcoming" },
-    { value: 500, label: "Market Leader", status: "upcoming" },
-    { value: 750, label: "Unicorn Status", status: "upcoming" },
-    { value: 1000, label: "Acquisition Target", status: "upcoming" },
-  ]
-
-  const currentValuation = 84.7
-  const progressToNext = ((currentValuation - 50) / (100 - 50)) * 100
+  const formatNumber = (num: number) => {
+    if (num >= 1000000) {
+      return `${(num / 1000000).toFixed(1)}M`
+    } else if (num >= 1000) {
+      return `${(num / 1000).toFixed(0)}K`
+    }
+    return num.toString()
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 text-white relative overflow-hidden">
-      {/* Animated Background Elements */}
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-800 text-white relative overflow-hidden">
+      {/* Premium Background Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* DNA Helix Animation */}
-        <div className="absolute top-20 left-10 w-32 h-32 opacity-20">
+        {/* Golden DNA Helix */}
+        <div className="absolute top-20 left-10 w-40 h-40 opacity-20">
           <div className="animate-spin-slow">
-            <div className="w-full h-full border-4 border-cyan-400 rounded-full border-dashed"></div>
-            <div className="absolute top-2 left-2 w-28 h-28 border-4 border-green-400 rounded-full border-dotted animate-pulse"></div>
+            <div className="w-full h-full border-4 border-yellow-400 rounded-full border-dashed"></div>
+            <div className="absolute top-2 left-2 w-36 h-36 border-4 border-amber-400 rounded-full border-dotted animate-pulse"></div>
           </div>
         </div>
 
-        {/* Floating Particles */}
-        {[...Array(20)].map((_, i) => (
+        {/* Premium Particles */}
+        {[...Array(30)].map((_, i) => (
           <div
             key={i}
-            className="absolute w-2 h-2 bg-orange-400 rounded-full opacity-30 animate-float"
+            className="absolute w-3 h-3 bg-gradient-to-r from-yellow-400 to-amber-400 rounded-full opacity-40 animate-float"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
@@ -188,584 +198,218 @@ export default function DNALangCollaborativePlatform() {
           />
         ))}
 
-        {/* Collaboration Indicators */}
-        <div className="absolute top-1/3 right-20 opacity-30">
-          <div className="w-20 h-20 border-2 border-green-400 rounded-full animate-pulse">
-            <div className="w-full h-full flex items-center justify-center">
-              <Users className="w-8 h-8 text-green-400" />
-            </div>
+        {/* Billion Dollar Symbol */}
+        <div className="absolute top-1/3 right-20 opacity-10">
+          <div className="w-32 h-32 border-4 border-yellow-400 rounded-full flex items-center justify-center">
+            <DollarSign className="w-16 h-16 text-yellow-400" />
           </div>
         </div>
 
-        {/* Organic Shapes */}
-        <div className="absolute bottom-20 right-20 w-40 h-40 opacity-10">
-          <div className="w-full h-full bg-gradient-to-r from-cyan-400 to-green-400 rounded-full animate-pulse transform rotate-45"></div>
+        {/* Premium Geometric Shapes */}
+        <div className="absolute bottom-20 right-20 w-48 h-48 opacity-10">
+          <div className="w-full h-full bg-gradient-to-r from-yellow-400 via-amber-400 to-orange-400 rounded-full animate-pulse transform rotate-45"></div>
         </div>
       </div>
 
-      {/* Header */}
-      <header className="relative z-10 border-b border-slate-700/50 backdrop-blur-sm bg-slate-900/50">
-        <div className="container mx-auto px-6 py-4">
+      {/* Premium Header */}
+      <header className="relative z-10 border-b border-yellow-400/30 backdrop-blur-sm bg-slate-900/80">
+        <div className="container mx-auto px-6 py-6">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="w-10 h-10 bg-gradient-to-r from-cyan-400 to-green-400 rounded-lg flex items-center justify-center">
-                <Code className="w-6 h-6 text-slate-900" />
+            <div className="flex items-center space-x-6">
+              <div className="w-12 h-12 bg-gradient-to-r from-yellow-400 via-amber-400 to-orange-400 rounded-xl flex items-center justify-center">
+                <Crown className="w-8 h-8 text-slate-900" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-green-400 bg-clip-text text-transparent">
-                  DNA-Lang Collaborative Platform
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-yellow-400 via-amber-400 to-orange-400 bg-clip-text text-transparent">
+                  DNA-Lang Acquisition Platform
                 </h1>
-                <p className="text-sm text-slate-400">Real-time Multi-Developer Evolution Engine v1.7</p>
+                <p className="text-lg text-slate-300">Billion Dollar Genetic Programming Revolution</p>
+                <p className="text-sm text-yellow-400">Live Valuation: {formatCurrency(liveValuation)}</p>
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <Badge variant="outline" className="border-green-400 text-green-400">
-                <Users className="w-3 h-3 mr-1" />
-                {activeCollaborators} Active
+              <Badge variant="outline" className="border-yellow-400 text-yellow-400 px-4 py-2">
+                <Trophy className="w-4 h-4 mr-2" />
+                Category Leader
               </Badge>
-              <Badge variant="outline" className="border-orange-400 text-orange-400">
-                ${tokenPrice.toFixed(3)} DNA
+              <Badge variant="outline" className="border-green-400 text-green-400 px-4 py-2">
+                <TrendingUp className="w-4 h-4 mr-2" />
+                {financialMetrics.growth_rate}% Growth
               </Badge>
-              <Button size="sm" variant="outline" className="border-cyan-400 text-cyan-400 bg-transparent">
-                <Video className="w-4 h-4 mr-2" />
-                Join Call
+              <Button className="bg-gradient-to-r from-yellow-400 to-amber-400 text-slate-900 font-bold">
+                <Briefcase className="w-4 h-4 mr-2" />
+                Acquisition Ready
               </Button>
             </div>
           </div>
         </div>
       </header>
 
+      {/* Acquisition Status Bar */}
+      <div className="relative z-10 bg-gradient-to-r from-yellow-400/10 to-amber-400/10 border-b border-yellow-400/20">
+        <div className="container mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-6">
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                <span className="text-sm font-medium">Acquisition Phase: {acquisitionPhase}</span>
+              </div>
+              <div className="text-sm text-slate-400">
+                Lead Offer: {selectedOffer.company} - {formatCurrency(selectedOffer.offer * 1000000)}
+              </div>
+            </div>
+            <div className="flex items-center space-x-4">
+              <Badge variant="outline" className="border-yellow-400 text-yellow-400">
+                <Eye className="w-3 h-3 mr-1" />5 Active Offers
+              </Badge>
+              <Badge variant="outline" className="border-green-400 text-green-400">
+                <Calendar className="w-3 h-3 mr-1" />
+                90-Day Timeline
+              </Badge>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Main Content */}
       <main className="relative z-10 container mx-auto px-6 py-8">
-        {/* Collaboration Status Bar */}
-        <div className="mb-6">
-          <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-4">
-                  <div className="flex -space-x-2">
-                    {mockCollaborators.slice(0, 4).map((collaborator) => (
-                      <Avatar key={collaborator.id} className="border-2 border-slate-700 w-8 h-8">
-                        <AvatarImage src={collaborator.avatar || "/placeholder.svg"} />
-                        <AvatarFallback className="bg-gradient-to-r from-cyan-400 to-green-400 text-slate-900 text-xs">
-                          {collaborator.name
-                            .split(" ")
-                            .map((n) => n[0])
-                            .join("")}
-                        </AvatarFallback>
-                      </Avatar>
-                    ))}
-                  </div>
-                  <div>
-                    <div className="text-sm font-medium">Collaborative Session Active</div>
-                    <div className="text-xs text-slate-400">Working on: {selectedOrganism}</div>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Badge variant="outline" className="border-green-400 text-green-400">
-                    <Activity className="w-3 h-3 mr-1" />
-                    Live Sync
-                  </Badge>
-                  {mockConflicts.length > 0 && (
-                    <Badge variant="outline" className="border-orange-400 text-orange-400">
-                      <AlertTriangle className="w-3 h-3 mr-1" />
-                      {mockConflicts.length} Conflicts
-                    </Badge>
-                  )}
-                  <Button size="sm" variant="outline">
-                    <Share2 className="w-4 h-4 mr-2" />
-                    Invite
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Hero Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+        {/* Key Metrics Dashboard */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+          <Card className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border-yellow-400/30 backdrop-blur-sm">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-slate-400">Market Cap</CardTitle>
+              <CardTitle className="text-sm font-medium text-slate-300 flex items-center">
+                <DollarSign className="w-4 h-4 mr-2 text-yellow-400" />
+                Live Valuation
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-cyan-400">${currentValuation.toFixed(1)}M</div>
-              <p className="text-xs text-green-400 flex items-center mt-1">
+              <div className="text-3xl font-bold text-yellow-400">{formatCurrency(liveValuation)}</div>
+              <p className="text-sm text-green-400 flex items-center mt-1">
+                <ArrowUp className="w-3 h-3 mr-1" />
+                +12.5% (24h)
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border-green-400/30 backdrop-blur-sm">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-slate-300 flex items-center">
+                <BarChart3 className="w-4 h-4 mr-2 text-green-400" />
+                ARR Growth
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-green-400">{formatCurrency(arrGrowth)}</div>
+              <p className="text-sm text-green-400 flex items-center mt-1">
                 <TrendingUp className="w-3 h-3 mr-1" />
-                +8.5% to next milestone
+                {financialMetrics.growth_rate}% YoY
               </p>
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+          <Card className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border-cyan-400/30 backdrop-blur-sm">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-slate-400">Active Organisms</CardTitle>
+              <CardTitle className="text-sm font-medium text-slate-300 flex items-center">
+                <Users className="w-4 h-4 mr-2 text-cyan-400" />
+                Active Developers
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-green-400">{activeOrganisms.toLocaleString()}</div>
-              <p className="text-xs text-green-400 flex items-center mt-1">
+              <div className="text-3xl font-bold text-cyan-400">{formatNumber(activeUsers)}</div>
+              <p className="text-sm text-green-400 flex items-center mt-1">
                 <Users className="w-3 h-3 mr-1" />
-                127K+ developers
+                {marketMetrics.enterprises} Enterprises
               </p>
             </CardContent>
           </Card>
 
-          <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+          <Card className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border-orange-400/30 backdrop-blur-sm">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-slate-400">Collaboration Score</CardTitle>
+              <CardTitle className="text-sm font-medium text-slate-300 flex items-center">
+                <Target className="w-4 h-4 mr-2 text-orange-400" />
+                Market Share
+              </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold text-orange-400">94.2%</div>
-              <p className="text-xs text-green-400 flex items-center mt-1">
-                <Brain className="w-3 h-3 mr-1" />
-                Real-time sync active
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium text-slate-400">DNA Rewards</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-yellow-400">1,247</div>
-              <p className="text-xs text-green-400 flex items-center mt-1">
-                <Coins className="w-3 h-3 mr-1" />
-                Team mining active
+              <div className="text-3xl font-bold text-orange-400">{marketMetrics.market_share}%</div>
+              <p className="text-sm text-green-400 flex items-center mt-1">
+                <Crown className="w-3 h-3 mr-1" />
+                Category Leader
               </p>
             </CardContent>
           </Card>
         </div>
 
         {/* Main Dashboard */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Main Content Area */}
-          <div className="lg:col-span-2 space-y-6">
-            <Tabs defaultValue="collaboration" className="space-y-6">
-              <TabsList className="grid w-full grid-cols-4 bg-slate-800/50 border-slate-700">
-                <TabsTrigger value="collaboration">Collaboration</TabsTrigger>
-                <TabsTrigger value="evolution">Evolution</TabsTrigger>
-                <TabsTrigger value="organisms">Organisms</TabsTrigger>
-                <TabsTrigger value="conflicts">Conflicts</TabsTrigger>
-              </TabsList>
+        <Tabs defaultValue="acquisition" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-6 bg-slate-800/50 border-slate-700">
+            <TabsTrigger value="acquisition">Acquisition</TabsTrigger>
+            <TabsTrigger value="financials">Financials</TabsTrigger>
+            <TabsTrigger value="strategic">Strategic</TabsTrigger>
+            <TabsTrigger value="technology">Technology</TabsTrigger>
+            <TabsTrigger value="market">Market</TabsTrigger>
+            <TabsTrigger value="timeline">Timeline</TabsTrigger>
+          </TabsList>
 
-              <TabsContent value="collaboration" className="space-y-6">
-                {/* Live Code Editor */}
-                <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="flex items-center">
-                        <Code className="w-5 h-5 mr-2 text-cyan-400" />
-                        Collaborative Code Editor
-                      </CardTitle>
-                      <div className="flex items-center space-x-2">
-                        <Badge variant="outline" className="border-green-400 text-green-400">
-                          <Eye className="w-3 h-3 mr-1" />3 viewing
+          <TabsContent value="acquisition" className="space-y-6">
+            {/* Acquisition Offers */}
+            <Card className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border-yellow-400/30 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Handshake className="w-6 h-6 mr-3 text-yellow-400" />
+                  Active Acquisition Offers
+                </CardTitle>
+                <CardDescription>Strategic acquirers competing for DNA-Lang</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                  {acquisitionOffers.map((offer, index) => (
+                    <div
+                      key={index}
+                      className={`p-6 rounded-xl border-2 cursor-pointer transition-all ${
+                        selectedOffer.company === offer.company
+                          ? `${offer.border} ${offer.bg}`
+                          : "border-slate-600 bg-slate-700/30"
+                      }`}
+                      onClick={() => setSelectedOffer(offer)}
+                    >
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center space-x-3">
+                          <div className="w-12 h-12 bg-slate-600 rounded-lg flex items-center justify-center">
+                            <Building2 className={`w-6 h-6 ${offer.color}`} />
+                          </div>
+                          <div>
+                            <h3 className="text-lg font-bold">{offer.company}</h3>
+                            <p className="text-sm text-slate-400">{offer.synergies}</p>
+                          </div>
+                        </div>
+                        <Badge variant="outline" className={`${offer.border} ${offer.color}`}>
+                          {offer.probability}% Likely
                         </Badge>
-                        <Badge variant="outline" className="border-orange-400 text-orange-400">
-                          <Edit3 className="w-3 h-3 mr-1" />1 editing
-                        </Badge>
                       </div>
-                    </div>
-                    <CardDescription>Real-time collaborative editing with conflict resolution</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      {/* File Tabs */}
-                      <div className="flex space-x-2 border-b border-slate-600 pb-2">
-                        <Button size="sm" variant="ghost" className="text-cyan-400 border-b-2 border-cyan-400">
-                          user-auth.gene
-                        </Button>
-                        <Button size="sm" variant="ghost" className="text-slate-400">
-                          performance.gene
-                        </Button>
-                        <Button size="sm" variant="ghost" className="text-slate-400">
-                          security.gene
-                        </Button>
-                      </div>
-
-                      {/* Code Editor Area */}
-                      <div className="relative">
-                        <Textarea
-                          className="min-h-[300px] bg-slate-900/50 border-slate-600 text-green-400 font-mono text-sm"
-                          value={`gene UserAuth {
-  purpose: "Identity verification with real-time collaboration"
-  
-  implementation: {
-    strategy: jwt_with_refresh,
-    code: \`
-      async function auth(ctx) {
-        // Alex Chen is editing this section
-        const validation = await validateUser(ctx.token);
-        if (!validation.valid) {
-          throw new AuthError(validation.error);
-        }
-        
-        // Sarah Kim added security enhancement
-        const securityCheck = await checkSecurityThreats(ctx);
-        if (securityCheck.risk > 0.8) {
-          await logSecurityEvent(securityCheck);
-          throw new SecurityError("High risk detected");
-        }
-        
-        return { user: validation.user, session: ctx.session };
-      }
-    \`
-  }
-  
-  mutations: {
-    add_biometrics: \`
-      // Lisa Wang's AI-suggested mutation
-      const biometricResult = await verifyBiometric(ctx.biometric);
-      if (!biometricResult.match) throw new BiometricError();
-    \`,
-    
-    optimize_performance: \`
-      // Mike Johnson's performance optimization
-      const cached = await getFromCache(ctx.userId);
-      if (cached && !cached.expired) return cached.data;
-    \`
-  }
-  
-  immune_responses: {
-    brute_force: "rate_limit(); alert_security_team();",
-    suspicious_activity: "require_2fa(); log_incident();"
-  }
-}`}
-                          readOnly
-                        />
-
-                        {/* Live Cursors */}
-                        <div className="absolute top-4 right-4 flex space-x-2">
-                          <div className="flex items-center space-x-1 bg-green-400/20 px-2 py-1 rounded text-xs">
-                            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                            <span className="text-green-400">Alex Chen</span>
-                          </div>
-                          <div className="flex items-center space-x-1 bg-orange-400/20 px-2 py-1 rounded text-xs">
-                            <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse"></div>
-                            <span className="text-orange-400">Sarah Kim</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Collaboration Tools */}
-                      <div className="flex items-center justify-between pt-4 border-t border-slate-600">
-                        <div className="flex items-center space-x-2">
-                          <Button size="sm" variant="outline">
-                            <Save className="w-4 h-4 mr-2" />
-                            Save
-                          </Button>
-                          <Button size="sm" variant="outline">
-                            <GitMerge className="w-4 h-4 mr-2" />
-                            Merge
-                          </Button>
-                          <Button size="sm" variant="outline">
-                            <Share2 className="w-4 h-4 mr-2" />
-                            Share
-                          </Button>
-                        </div>
-                        <div className="text-xs text-slate-400">Last saved: 2 minutes ago by Alex Chen</div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Team Activity */}
-                <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
-                  <CardHeader>
-                    <CardTitle className="flex items-center">
-                      <Activity className="w-5 h-5 mr-2 text-green-400" />
-                      Team Activity Feed
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <ScrollArea className="h-64">
-                      <div className="space-y-3">
-                        {mockMessages.map((message) => (
-                          <div key={message.id} className="flex items-start space-x-3 p-3 rounded-lg bg-slate-700/30">
-                            <Avatar className="w-8 h-8">
-                              <AvatarFallback className="bg-gradient-to-r from-cyan-400 to-green-400 text-slate-900 text-xs">
-                                {message.user
-                                  .split(" ")
-                                  .map((n) => n[0])
-                                  .join("")}
-                              </AvatarFallback>
-                            </Avatar>
-                            <div className="flex-1">
-                              <div className="flex items-center space-x-2">
-                                <span className="text-sm font-medium">{message.user}</span>
-                                <span className="text-xs text-slate-400">{message.timestamp}</span>
-                                <Badge
-                                  variant="outline"
-                                  className={`text-xs ${
-                                    message.type === "success"
-                                      ? "border-green-400 text-green-400"
-                                      : message.type === "warning"
-                                        ? "border-orange-400 text-orange-400"
-                                        : message.type === "question"
-                                          ? "border-blue-400 text-blue-400"
-                                          : "border-slate-400 text-slate-400"
-                                  }`}
-                                >
-                                  {message.type}
-                                </Badge>
-                              </div>
-                              <p className="text-sm text-slate-300 mt-1">{message.message}</p>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </ScrollArea>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-
-              <TabsContent value="evolution" className="space-y-6">
-                {/* Evolution Control */}
-                <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
-                  <CardHeader>
-                    <CardTitle className="flex items-center justify-between">
-                      <span className="flex items-center">
-                        <GitBranch className="w-5 h-5 mr-2 text-cyan-400" />
-                        Collaborative Evolution Engine
-                      </span>
-                      <div className="flex space-x-2">
-                        <Button
-                          size="sm"
-                          variant={isEvolutionActive ? "default" : "outline"}
-                          onClick={() => setIsEvolutionActive(!isEvolutionActive)}
-                        >
-                          {isEvolutionActive ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-                        </Button>
-                        <Button size="sm" variant="outline">
-                          <RotateCcw className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div className="flex justify-between items-center">
-                        <span className="text-sm text-slate-400">Team Fitness Score</span>
-                        <span className="text-sm font-medium text-green-400">{fitnessScore.toFixed(1)}%</span>
-                      </div>
-                      <Progress value={fitnessScore} className="h-2" />
-
-                      <div className="grid grid-cols-4 gap-4 mt-4">
-                        <div className="text-center">
-                          <div className="text-lg font-bold text-cyan-400">Gen 247</div>
-                          <div className="text-xs text-slate-400">Current</div>
-                        </div>
-                        <div className="text-center">
-                          <div className="text-lg font-bold text-green-400">+23%</div>
-                          <div className="text-xs text-slate-400">Team Boost</div>
-                        </div>
-                        <div className="text-center">
-                          <div className="text-lg font-bold text-orange-400">4</div>
-                          <div className="text-xs text-slate-400">Contributors</div>
-                        </div>
-                        <div className="text-center">
-                          <div className="text-lg font-bold text-yellow-400">0.3s</div>
-                          <div className="text-xs text-slate-400">Sync Time</div>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Team Evolution Mining */}
-                <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
-                  <CardHeader>
-                    <CardTitle className="flex items-center">
-                      <Zap className="w-5 h-5 mr-2 text-yellow-400" />
-                      Team Evolution Mining
-                    </CardTitle>
-                    <CardDescription>Collaborative rewards distribution</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <Alert className="border-yellow-400/20 bg-yellow-400/10">
-                        <Coins className="h-4 w-4 text-yellow-400" />
-                        <AlertDescription className="text-yellow-400">
-                          Team bonus: +50% DNA rewards for collaborative improvements
-                        </AlertDescription>
-                      </Alert>
 
                       <div className="grid grid-cols-2 gap-4">
                         <div>
-                          <div className="text-sm text-slate-400">Team Pool</div>
-                          <div className="text-2xl font-bold text-yellow-400">1,847 DNA</div>
+                          <div className="text-sm text-slate-400">Offer Value</div>
+                          <div className={`text-2xl font-bold ${offer.color}`}>
+                            {formatCurrency(offer.offer * 1000000)}
+                          </div>
                         </div>
                         <div>
-                          <div className="text-sm text-slate-400">Your Share</div>
-                          <div className="text-2xl font-bold text-green-400">462 DNA</div>
+                          <div className="text-sm text-slate-400">Premium</div>
+                          <div className="text-xl font-bold text-green-400">+{offer.premium}%</div>
                         </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-
-              <TabsContent value="organisms" className="space-y-6">
-                {/* Collaborative Organisms */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {[
-                    { name: "ECommerceApp", fitness: 94.2, status: "collaborative", contributors: 4, mutations: 23 },
-                    { name: "SecurityAgent", fitness: 98.7, status: "review", contributors: 2, mutations: 45 },
-                    { name: "DataProcessor", fitness: 87.1, status: "collaborative", contributors: 3, mutations: 12 },
-                    { name: "APIGateway", fitness: 91.5, status: "locked", contributors: 1, mutations: 34 },
-                  ].map((organism, index) => (
-                    <Card key={index} className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
-                      <CardHeader className="pb-3">
-                        <div className="flex items-center justify-between">
-                          <CardTitle className="text-lg">{organism.name}</CardTitle>
+                        <div>
+                          <div className="text-sm text-slate-400">Timeline</div>
+                          <div className="text-sm font-medium">{offer.timeline}</div>
+                        </div>
+                        <div>
+                          <div className="text-sm text-slate-400">Strategic Fit</div>
                           <div className="flex items-center space-x-2">
-                            <Badge
-                              variant="outline"
-                              className={
-                                organism.status === "collaborative"
-                                  ? "border-green-400 text-green-400"
-                                  : organism.status === "review"
-                                    ? "border-orange-400 text-orange-400"
-                                    : organism.status === "locked"
-                                      ? "border-red-400 text-red-400"
-                                      : "border-blue-400 text-blue-400"
-                              }
-                            >
-                              {organism.status}
-                            </Badge>
-                            <div className="flex -space-x-1">
-                              {Array.from({ length: organism.contributors }).map((_, i) => (
-                                <div
-                                  key={i}
-                                  className="w-6 h-6 bg-gradient-to-r from-cyan-400 to-green-400 rounded-full border-2 border-slate-700 flex items-center justify-center text-xs text-slate-900 font-bold"
-                                >
-                                  {i + 1}
-                                </div>
-                              ))}
-                            </div>
+                            <Progress value={offer.strategic_fit} className="h-2 flex-1" />
+                            <span className="text-sm font-medium">{offer.strategic_fit}%</span>
                           </div>
                         </div>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-3">
-                          <div>
-                            <div className="flex justify-between text-sm mb-1">
-                              <span className="text-slate-400">Team Fitness</span>
-                              <span className="font-medium">{organism.fitness}%</span>
-                            </div>
-                            <Progress value={organism.fitness} className="h-1" />
-                          </div>
-                          <div className="flex justify-between text-sm">
-                            <span className="text-slate-400">Contributors</span>
-                            <span className="font-medium">{organism.contributors}</span>
-                          </div>
-                          <div className="flex justify-between text-sm">
-                            <span className="text-slate-400">Mutations</span>
-                            <span className="font-medium">{organism.mutations}</span>
-                          </div>
-                          <Button size="sm" variant="outline" className="w-full bg-transparent">
-                            Join Collaboration
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </TabsContent>
-
-              <TabsContent value="conflicts" className="space-y-6">
-                {/* Merge Conflicts */}
-                <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
-                  <CardHeader>
-                    <CardTitle className="flex items-center">
-                      <Merge className="w-5 h-5 mr-2 text-orange-400" />
-                      Merge Conflicts & Locks
-                    </CardTitle>
-                    <CardDescription>Resolve conflicts and manage file locks</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      {mockConflicts.map((conflict) => (
-                        <div key={conflict.id} className="p-4 rounded-lg bg-slate-700/30 border border-orange-400/30">
-                          <div className="flex items-center justify-between mb-2">
-                            <div className="flex items-center space-x-2">
-                              <AlertTriangle className="w-4 h-4 text-orange-400" />
-                              <span className="font-medium">{conflict.file}</span>
-                              <Badge variant="outline" className="border-orange-400 text-orange-400">
-                                {conflict.type}
-                              </Badge>
-                            </div>
-                            <div className="flex space-x-2">
-                              <Button size="sm" variant="outline">
-                                Resolve
-                              </Button>
-                              <Button size="sm" variant="outline">
-                                <X className="w-4 h-4" />
-                              </Button>
-                            </div>
-                          </div>
-                          <p className="text-sm text-slate-400 mb-2">{conflict.description}</p>
-                          <div className="flex items-center space-x-2">
-                            <span className="text-xs text-slate-500">Involved:</span>
-                            {conflict.users.map((user, index) => (
-                              <Badge key={index} variant="outline" className="text-xs">
-                                {user}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-            </Tabs>
-          </div>
-
-          {/* Collaboration Sidebar */}
-          <div className="space-y-6">
-            {/* Active Collaborators */}
-            <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
-              <CardHeader>
-                <div className="flex items-center justify-between">
-                  <CardTitle className="flex items-center">
-                    <Users className="w-5 h-5 mr-2 text-green-400" />
-                    Team Members
-                  </CardTitle>
-                  <Button size="sm" variant="outline">
-                    <UserPlus className="w-4 h-4" />
-                  </Button>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {mockCollaborators.map((collaborator) => (
-                    <div key={collaborator.id} className="flex items-center space-x-3 p-2 rounded-lg bg-slate-700/30">
-                      <div className="relative">
-                        <Avatar className="w-10 h-10">
-                          <AvatarImage src={collaborator.avatar || "/placeholder.svg"} />
-                          <AvatarFallback className="bg-gradient-to-r from-cyan-400 to-green-400 text-slate-900">
-                            {collaborator.name
-                              .split(" ")
-                              .map((n) => n[0])
-                              .join("")}
-                          </AvatarFallback>
-                        </Avatar>
-                        <div
-                          className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full border-2 border-slate-700 ${
-                            collaborator.status === "online"
-                              ? "bg-green-400"
-                              : collaborator.status === "away"
-                                ? "bg-orange-400"
-                                : "bg-gray-400"
-                          }`}
-                        />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="text-sm font-medium truncate">{collaborator.name}</div>
-                        <div className="text-xs text-slate-400 truncate">{collaborator.role}</div>
-                        <div className="text-xs text-green-400 truncate">{collaborator.currentTask}</div>
                       </div>
                     </div>
                   ))}
@@ -773,94 +417,724 @@ export default function DNALangCollaborativePlatform() {
               </CardContent>
             </Card>
 
-            {/* Team Chat */}
-            <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+            {/* Valuation Breakdown */}
+            <Card className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border-amber-400/30 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="flex items-center">
-                  <MessageSquare className="w-5 h-5 mr-2 text-cyan-400" />
-                  Team Chat
+                  <Calculator className="w-6 h-6 mr-3 text-amber-400" />
+                  Valuation Breakdown
                 </CardTitle>
+                <CardDescription>Strategic asset valuation analysis</CardDescription>
               </CardHeader>
               <CardContent>
-                <ScrollArea className="h-64 mb-4">
-                  <div className="space-y-3">
-                    {mockMessages.slice(0, 6).map((message) => (
-                      <div key={message.id} className="text-sm">
-                        <div className="flex items-center space-x-2 mb-1">
-                          <span className="font-medium text-cyan-400">{message.user.split(" ")[0]}</span>
-                          <span className="text-xs text-slate-500">{message.timestamp}</span>
+                <div className="space-y-4">
+                  {strategicAssets.map((asset, index) => (
+                    <div key={index} className="flex items-center justify-between p-4 rounded-lg bg-slate-700/30">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 bg-gradient-to-r from-amber-400 to-yellow-400 rounded-lg flex items-center justify-center">
+                          <Gem className="w-5 h-5 text-slate-900" />
                         </div>
-                        <p className="text-slate-300 text-xs">{message.message}</p>
+                        <div>
+                          <div className="font-medium">{asset.name}</div>
+                          <div className="text-sm text-slate-400">{asset.type}</div>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-xl font-bold text-amber-400">{formatCurrency(asset.value * 1000000)}</div>
+                        <div className="text-sm text-slate-400">
+                          {((asset.value / 1500) * 100).toFixed(1)}% of total
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                  <Separator />
+                  <div className="flex items-center justify-between p-4 rounded-lg bg-gradient-to-r from-yellow-400/10 to-amber-400/10 border border-yellow-400/30">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-12 h-12 bg-gradient-to-r from-yellow-400 to-amber-400 rounded-lg flex items-center justify-center">
+                        <Crown className="w-6 h-6 text-slate-900" />
+                      </div>
+                      <div>
+                        <div className="text-lg font-bold">Total Valuation</div>
+                        <div className="text-sm text-slate-400">Enterprise Value</div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-3xl font-bold text-yellow-400">
+                        {formatCurrency(financialMetrics.valuation)}
+                      </div>
+                      <div className="text-sm text-green-400">+25% premium expected</div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="financials" className="space-y-6">
+            {/* Financial Performance */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <Card className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border-green-400/30 backdrop-blur-sm">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <TrendingUp className="w-5 h-5 mr-2 text-green-400" />
+                    Revenue Metrics
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div>
+                      <div className="text-sm text-slate-400">Annual Recurring Revenue</div>
+                      <div className="text-2xl font-bold text-green-400">{formatCurrency(financialMetrics.arr)}</div>
+                    </div>
+                    <div>
+                      <div className="text-sm text-slate-400">YoY Growth Rate</div>
+                      <div className="text-xl font-bold text-green-400">{financialMetrics.growth_rate}%</div>
+                    </div>
+                    <div>
+                      <div className="text-sm text-slate-400">Gross Margin</div>
+                      <div className="text-xl font-bold text-green-400">{financialMetrics.gross_margin}%</div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border-blue-400/30 backdrop-blur-sm">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <BarChart3 className="w-5 h-5 mr-2 text-blue-400" />
+                    Efficiency Metrics
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div>
+                      <div className="text-sm text-slate-400">Rule of 40</div>
+                      <div className="text-2xl font-bold text-blue-400">{financialMetrics.rule_of_40}</div>
+                      <div className="text-xs text-green-400">World-class (&gt;40)</div>
+                    </div>
+                    <div>
+                      <div className="text-sm text-slate-400">CAC/LTV Ratio</div>
+                      <div className="text-xl font-bold text-blue-400">{financialMetrics.cac_ltv_ratio}x</div>
+                    </div>
+                    <div>
+                      <div className="text-sm text-slate-400">Burn Rate</div>
+                      <div className="text-xl font-bold text-blue-400">
+                        {formatCurrency(financialMetrics.burn_rate)}/mo
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border-purple-400/30 backdrop-blur-sm">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Banknote className="w-5 h-5 mr-2 text-purple-400" />
+                    Capital Efficiency
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div>
+                      <div className="text-sm text-slate-400">Cash Runway</div>
+                      <div className="text-2xl font-bold text-purple-400">{financialMetrics.runway} months</div>
+                    </div>
+                    <div>
+                      <div className="text-sm text-slate-400">Revenue Multiple</div>
+                      <div className="text-xl font-bold text-purple-400">15x</div>
+                    </div>
+                    <div>
+                      <div className="text-sm text-slate-400">EBITDA Margin</div>
+                      <div className="text-xl font-bold text-purple-400">45%</div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Financial Projections */}
+            <Card className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border-cyan-400/30 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <LineChart className="w-6 h-6 mr-3 text-cyan-400" />
+                  5-Year Financial Projections
+                </CardTitle>
+                <CardDescription>Revenue and valuation growth trajectory</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-5 gap-4">
+                  {[
+                    { year: "2025", revenue: 100, valuation: 1500 },
+                    { year: "2026", revenue: 200, valuation: 3000 },
+                    { year: "2027", revenue: 350, valuation: 5250 },
+                    { year: "2028", revenue: 500, valuation: 7500 },
+                    { year: "2029", revenue: 750, valuation: 11250 },
+                  ].map((projection, index) => (
+                    <div key={index} className="text-center p-4 rounded-lg bg-slate-700/30">
+                      <div className="text-lg font-bold text-cyan-400">{projection.year}</div>
+                      <div className="text-sm text-slate-400 mt-2">Revenue</div>
+                      <div className="text-xl font-bold text-green-400">
+                        {formatCurrency(projection.revenue * 1000000)}
+                      </div>
+                      <div className="text-sm text-slate-400 mt-2">Valuation</div>
+                      <div className="text-lg font-bold text-yellow-400">
+                        {formatCurrency(projection.valuation * 1000000)}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="strategic" className="space-y-6">
+            {/* Strategic Advantages */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border-yellow-400/30 backdrop-blur-sm">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Shield className="w-6 h-6 mr-3 text-yellow-400" />
+                    Competitive Moats
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {[
+                      { name: "Technology Leadership", strength: 95, description: "5+ years ahead of competition" },
+                      { name: "Patent Portfolio", strength: 90, description: "50+ granted patents" },
+                      { name: "Network Effects", strength: 85, description: "1M+ organisms ecosystem" },
+                      { name: "Developer Ecosystem", strength: 88, description: "100K+ active developers" },
+                      { name: "Enterprise Contracts", strength: 82, description: "500+ enterprise customers" },
+                    ].map((moat, index) => (
+                      <div key={index} className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <span className="font-medium">{moat.name}</span>
+                          <span className="text-sm text-yellow-400">{moat.strength}%</span>
+                        </div>
+                        <Progress value={moat.strength} className="h-2" />
+                        <p className="text-xs text-slate-400">{moat.description}</p>
                       </div>
                     ))}
                   </div>
-                </ScrollArea>
-                <div className="flex space-x-2">
-                  <Input
-                    placeholder="Type a message..."
-                    value={newMessage}
-                    onChange={(e) => setNewMessage(e.target.value)}
-                    onKeyPress={(e) => e.key === "Enter" && sendMessage()}
-                    className="bg-slate-700/50 border-slate-600"
-                  />
-                  <Button size="sm" onClick={sendMessage}>
-                    <Send className="w-4 h-4" />
-                  </Button>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border-green-400/30 backdrop-blur-sm">
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Rocket className="w-6 h-6 mr-3 text-green-400" />
+                    Strategic Partnerships
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {[
+                      { partner: "Microsoft Azure", type: "Cloud Integration", value: "High" },
+                      { partner: "GitHub", type: "Developer Platform", value: "High" },
+                      { partner: "AWS", type: "Infrastructure", value: "Medium" },
+                      { partner: "Google Cloud", type: "AI/ML Services", value: "Medium" },
+                      { partner: "Docker", type: "Containerization", value: "Medium" },
+                      { partner: "Kubernetes", type: "Orchestration", value: "Low" },
+                    ].map((partnership, index) => (
+                      <div key={index} className="flex items-center justify-between p-3 rounded-lg bg-slate-700/30">
+                        <div>
+                          <div className="font-medium">{partnership.partner}</div>
+                          <div className="text-sm text-slate-400">{partnership.type}</div>
+                        </div>
+                        <Badge
+                          variant="outline"
+                          className={
+                            partnership.value === "High"
+                              ? "border-green-400 text-green-400"
+                              : partnership.value === "Medium"
+                                ? "border-yellow-400 text-yellow-400"
+                                : "border-slate-400 text-slate-400"
+                          }
+                        >
+                          {partnership.value}
+                        </Badge>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Market Position */}
+            <Card className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border-purple-400/30 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Target className="w-6 h-6 mr-3 text-purple-400" />
+                  Market Position & Opportunity
+                </CardTitle>
+                <CardDescription>Total Addressable Market and competitive landscape</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-purple-400">$50B</div>
+                    <div className="text-sm text-slate-400">Total Addressable Market</div>
+                    <div className="text-xs text-green-400 mt-1">Growing 25% annually</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-cyan-400">$15B</div>
+                    <div className="text-sm text-slate-400">Serviceable Addressable Market</div>
+                    <div className="text-xs text-green-400 mt-1">Immediate opportunity</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-yellow-400">65%</div>
+                    <div className="text-sm text-slate-400">Market Share</div>
+                    <div className="text-xs text-green-400 mt-1">Category leader</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="technology" className="space-y-6">
+            {/* Technology Stack */}
+            <Card className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border-cyan-400/30 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Brain className="w-6 h-6 mr-3 text-cyan-400" />
+                  Autonomous Technology Stack
+                </CardTitle>
+                <CardDescription>Revolutionary self-evolving software architecture</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {[
+                    {
+                      name: "Evolution Engine",
+                      status: "Production",
+                      performance: 98,
+                      description: "Self-improving genetic algorithms",
+                    },
+                    {
+                      name: "Mutation Framework",
+                      status: "Production",
+                      performance: 95,
+                      description: "Adaptive code transformation",
+                    },
+                    {
+                      name: "Fitness Evaluation",
+                      status: "Production",
+                      performance: 97,
+                      description: "Real-time performance assessment",
+                    },
+                    {
+                      name: "Immune System",
+                      status: "Production",
+                      performance: 94,
+                      description: "Autonomous security responses",
+                    },
+                    {
+                      name: "Neural Networks",
+                      status: "Beta",
+                      performance: 89,
+                      description: "AI-driven optimization",
+                    },
+                    {
+                      name: "Quantum Computing",
+                      status: "Alpha",
+                      performance: 75,
+                      description: "Next-gen processing power",
+                    },
+                  ].map((tech, index) => (
+                    <div key={index} className="p-4 rounded-lg bg-slate-700/30 border border-slate-600">
+                      <div className="flex items-center justify-between mb-3">
+                        <h3 className="font-medium">{tech.name}</h3>
+                        <Badge
+                          variant="outline"
+                          className={
+                            tech.status === "Production"
+                              ? "border-green-400 text-green-400"
+                              : tech.status === "Beta"
+                                ? "border-yellow-400 text-yellow-400"
+                                : "border-orange-400 text-orange-400"
+                          }
+                        >
+                          {tech.status}
+                        </Badge>
+                      </div>
+                      <p className="text-sm text-slate-400 mb-3">{tech.description}</p>
+                      <div className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs text-slate-500">Performance</span>
+                          <span className="text-xs font-medium">{tech.performance}%</span>
+                        </div>
+                        <Progress value={tech.performance} className="h-1" />
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
 
-            {/* Collaboration Stats */}
-            <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+            {/* Patent Portfolio */}
+            <Card className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border-amber-400/30 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="flex items-center">
-                  <BarChart3 className="w-5 h-5 mr-2 text-orange-400" />
-                  Session Stats
+                  <Award className="w-6 h-6 mr-3 text-amber-400" />
+                  Intellectual Property Portfolio
                 </CardTitle>
+                <CardDescription>Comprehensive patent protection and trade secrets</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-3">
-                  <div className="flex justify-between">
-                    <span className="text-sm text-slate-400">Session Duration</span>
-                    <span className="text-sm font-medium">2h 34m</span>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between p-4 rounded-lg bg-slate-700/30">
+                      <div>
+                        <div className="font-medium">Granted Patents</div>
+                        <div className="text-sm text-slate-400">Issued and enforceable</div>
+                      </div>
+                      <div className="text-2xl font-bold text-green-400">50</div>
+                    </div>
+                    <div className="flex items-center justify-between p-4 rounded-lg bg-slate-700/30">
+                      <div>
+                        <div className="font-medium">Pending Applications</div>
+                        <div className="text-sm text-slate-400">Under review</div>
+                      </div>
+                      <div className="text-2xl font-bold text-yellow-400">25</div>
+                    </div>
+                    <div className="flex items-center justify-between p-4 rounded-lg bg-slate-700/30">
+                      <div>
+                        <div className="font-medium">Trade Secrets</div>
+                        <div className="text-sm text-slate-400">Proprietary algorithms</div>
+                      </div>
+                      <div className="text-2xl font-bold text-purple-400">100+</div>
+                    </div>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-sm text-slate-400">Code Changes</span>
-                    <span className="text-sm font-medium text-green-400">247</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-sm text-slate-400">Conflicts Resolved</span>
-                    <span className="text-sm font-medium text-orange-400">12</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-sm text-slate-400">Team Efficiency</span>
-                    <span className="text-sm font-medium text-cyan-400">94.2%</span>
-                  </div>
-                  <Separator />
-                  <div className="flex justify-between">
-                    <span className="text-sm font-medium">DNA Rewards Earned</span>
-                    <span className="text-sm font-bold text-yellow-400">+127 DNA</span>
+                  <div className="space-y-4">
+                    <div className="p-4 rounded-lg bg-gradient-to-r from-amber-400/10 to-yellow-400/10 border border-amber-400/30">
+                      <h4 className="font-medium text-amber-400 mb-2">Patent Valuation</h4>
+                      <div className="text-3xl font-bold text-amber-400">$750M</div>
+                      <p className="text-sm text-slate-400 mt-1">Independent third-party valuation</p>
+                    </div>
+                    <div className="space-y-2">
+                      <h4 className="font-medium">Key Patent Categories</h4>
+                      {[
+                        { category: "Genetic Algorithms", count: 15 },
+                        { category: "Self-Healing Systems", count: 12 },
+                        { category: "Autonomous Evolution", count: 10 },
+                        { category: "Code Mutation", count: 8 },
+                        { category: "Fitness Evaluation", count: 5 },
+                      ].map((cat, index) => (
+                        <div key={index} className="flex items-center justify-between text-sm">
+                          <span className="text-slate-400">{cat.category}</span>
+                          <span className="font-medium">{cat.count} patents</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </CardContent>
             </Card>
-          </div>
-        </div>
+          </TabsContent>
+
+          <TabsContent value="market" className="space-y-6">
+            {/* Market Metrics */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <Card className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border-blue-400/30 backdrop-blur-sm">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium text-slate-300">Global Developers</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-blue-400">{formatNumber(marketMetrics.developers)}</div>
+                  <p className="text-xs text-green-400 mt-1">+45% growth rate</p>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border-green-400/30 backdrop-blur-sm">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium text-slate-300">Enterprise Customers</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-green-400">{marketMetrics.enterprises}</div>
+                  <p className="text-xs text-green-400 mt-1">Fortune 500 focus</p>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border-purple-400/30 backdrop-blur-sm">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium text-slate-300">Countries</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-purple-400">{marketMetrics.countries}</div>
+                  <p className="text-xs text-green-400 mt-1">Global presence</p>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border-orange-400/30 backdrop-blur-sm">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm font-medium text-slate-300">Active Organisms</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-orange-400">{formatNumber(marketMetrics.organisms)}</div>
+                  <p className="text-xs text-green-400 mt-1">Network effects</p>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Customer Segments */}
+            <Card className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border-cyan-400/30 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Users className="w-6 h-6 mr-3 text-cyan-400" />
+                  Customer Segments & Revenue
+                </CardTitle>
+                <CardDescription>Revenue breakdown by customer type and industry</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <h4 className="font-medium">By Customer Type</h4>
+                    {[
+                      { type: "Enterprise", revenue: 70, customers: 500, color: "text-green-400" },
+                      { type: "SMB", revenue: 20, customers: 2000, color: "text-blue-400" },
+                      { type: "Individual", revenue: 10, customers: 97500, color: "text-purple-400" },
+                    ].map((segment, index) => (
+                      <div key={index} className="flex items-center justify-between p-3 rounded-lg bg-slate-700/30">
+                        <div>
+                          <div className="font-medium">{segment.type}</div>
+                          <div className="text-sm text-slate-400">{segment.customers.toLocaleString()} customers</div>
+                        </div>
+                        <div className="text-right">
+                          <div className={`text-lg font-bold ${segment.color}`}>{segment.revenue}%</div>
+                          <div className="text-sm text-slate-400">of revenue</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="space-y-4">
+                    <h4 className="font-medium">By Industry</h4>
+                    {[
+                      { industry: "Technology", share: 35, color: "text-cyan-400" },
+                      { industry: "Financial Services", share: 25, color: "text-green-400" },
+                      { industry: "Healthcare", share: 15, color: "text-blue-400" },
+                      { industry: "Manufacturing", share: 12, color: "text-orange-400" },
+                      { industry: "Other", share: 13, color: "text-purple-400" },
+                    ].map((industry, index) => (
+                      <div key={index} className="space-y-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm">{industry.industry}</span>
+                          <span className={`text-sm font-medium ${industry.color}`}>{industry.share}%</span>
+                        </div>
+                        <Progress value={industry.share} className="h-2" />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="timeline" className="space-y-6">
+            {/* Acquisition Timeline */}
+            <Card className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border-green-400/30 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Calendar className="w-6 h-6 mr-3 text-green-400" />
+                  90-Day Acquisition Timeline
+                </CardTitle>
+                <CardDescription>Structured path to successful acquisition</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  {[
+                    {
+                      phase: "Phase 1: Initial Engagement",
+                      duration: "Days 1-14",
+                      status: "completed",
+                      tasks: [
+                        "NDA execution with all parties",
+                        "Initial management presentations",
+                        "High-level due diligence",
+                        "Preliminary valuation discussions",
+                      ],
+                    },
+                    {
+                      phase: "Phase 2: Due Diligence",
+                      duration: "Days 15-45",
+                      status: "current",
+                      tasks: [
+                        "Financial audit and verification",
+                        "Technology deep dive",
+                        "Legal and IP review",
+                        "Customer reference calls",
+                      ],
+                    },
+                    {
+                      phase: "Phase 3: Negotiation",
+                      duration: "Days 46-75",
+                      status: "upcoming",
+                      tasks: [
+                        "Term sheet negotiation",
+                        "Purchase agreement drafting",
+                        "Regulatory approval process",
+                        "Employee retention planning",
+                      ],
+                    },
+                    {
+                      phase: "Phase 4: Closing",
+                      duration: "Days 76-90",
+                      status: "upcoming",
+                      tasks: [
+                        "Final documentation",
+                        "Regulatory clearance",
+                        "Funding confirmation",
+                        "Transaction announcement",
+                      ],
+                    },
+                  ].map((phase, index) => (
+                    <div key={index} className="relative">
+                      <div className="flex items-start space-x-4">
+                        <div
+                          className={`w-4 h-4 rounded-full mt-1 ${
+                            phase.status === "completed"
+                              ? "bg-green-400"
+                              : phase.status === "current"
+                                ? "bg-yellow-400 animate-pulse"
+                                : "bg-slate-600"
+                          }`}
+                        />
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between mb-2">
+                            <h3 className="font-medium">{phase.phase}</h3>
+                            <div className="flex items-center space-x-2">
+                              <Badge
+                                variant="outline"
+                                className={
+                                  phase.status === "completed"
+                                    ? "border-green-400 text-green-400"
+                                    : phase.status === "current"
+                                      ? "border-yellow-400 text-yellow-400"
+                                      : "border-slate-400 text-slate-400"
+                                }
+                              >
+                                {phase.status}
+                              </Badge>
+                              <span className="text-sm text-slate-400">{phase.duration}</span>
+                            </div>
+                          </div>
+                          <div className="space-y-1">
+                            {phase.tasks.map((task, taskIndex) => (
+                              <div key={taskIndex} className="flex items-center space-x-2 text-sm text-slate-400">
+                                {phase.status === "completed" ? (
+                                  <CheckCircle className="w-3 h-3 text-green-400" />
+                                ) : phase.status === "current" ? (
+                                  <Clock className="w-3 h-3 text-yellow-400" />
+                                ) : (
+                                  <div className="w-3 h-3 rounded-full border border-slate-600" />
+                                )}
+                                <span>{task}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                      {index < 3 && (
+                        <div className="absolute left-2 top-6 w-px h-12 bg-slate-600 transform -translate-x-1/2" />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Key Milestones */}
+            <Card className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border-yellow-400/30 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <Star className="w-6 h-6 mr-3 text-yellow-400" />
+                  Critical Success Milestones
+                </CardTitle>
+                <CardDescription>Key achievements that maximize acquisition value</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {[
+                    {
+                      milestone: "Q4 2024 Revenue Target",
+                      target: "$30M ARR",
+                      status: "achieved",
+                      impact: "+$200M valuation",
+                    },
+                    {
+                      milestone: "Enterprise Customer Milestone",
+                      target: "500 customers",
+                      status: "achieved",
+                      impact: "+$150M valuation",
+                    },
+                    {
+                      milestone: "Patent Portfolio Completion",
+                      target: "50 patents",
+                      status: "achieved",
+                      impact: "+$100M valuation",
+                    },
+                    {
+                      milestone: "Global Expansion",
+                      target: "50 countries",
+                      status: "achieved",
+                      impact: "+$75M valuation",
+                    },
+                    {
+                      milestone: "Strategic Partnership",
+                      target: "Microsoft Azure",
+                      status: "in-progress",
+                      impact: "+$125M valuation",
+                    },
+                    {
+                      milestone: "SOC2 Type II Compliance",
+                      target: "Enterprise ready",
+                      status: "in-progress",
+                      impact: "+$50M valuation",
+                    },
+                  ].map((milestone, index) => (
+                    <div key={index} className="p-4 rounded-lg bg-slate-700/30 border border-slate-600">
+                      <div className="flex items-center justify-between mb-2">
+                        <h4 className="font-medium">{milestone.milestone}</h4>
+                        <Badge
+                          variant="outline"
+                          className={
+                            milestone.status === "achieved"
+                              ? "border-green-400 text-green-400"
+                              : "border-yellow-400 text-yellow-400"
+                          }
+                        >
+                          {milestone.status}
+                        </Badge>
+                      </div>
+                      <div className="text-sm text-slate-400 mb-1">Target: {milestone.target}</div>
+                      <div className="text-sm font-medium text-green-400">Impact: {milestone.impact}</div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </main>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-slate-700/50 backdrop-blur-sm bg-slate-900/50 mt-12">
+      <footer className="relative z-10 border-t border-yellow-400/30 backdrop-blur-sm bg-slate-900/80 mt-12">
         <div className="container mx-auto px-6 py-6">
           <div className="flex items-center justify-between">
-            <div className="text-sm text-slate-400">© 2025 DNA-Lang Platform. Real-time Collaboration Engine v1.7</div>
+            <div className="text-sm text-slate-400">
+              © 2025 DNA-Lang Platform. Billion Dollar Acquisition Ready. Goldman Sachs Advisory.
+            </div>
             <div className="flex items-center space-x-4">
               <Badge variant="outline" className="border-green-400 text-green-400">
-                <Activity className="w-3 h-3 mr-1" />
-                Live Sync Active
+                <CheckCircle className="w-3 h-3 mr-1" />
+                SOC2 Compliant
               </Badge>
-              <Badge variant="outline" className="border-cyan-400 text-cyan-400">
-                <Lock className="w-3 h-3 mr-1" />
-                End-to-End Encrypted
+              <Badge variant="outline" className="border-yellow-400 text-yellow-400">
+                <Crown className="w-3 h-3 mr-1" />
+                Category Leader
+              </Badge>
+              <Badge variant="outline" className="border-purple-400 text-purple-400">
+                <Gem className="w-3 h-3 mr-1" />
+                $1.5B Valuation
               </Badge>
             </div>
           </div>
