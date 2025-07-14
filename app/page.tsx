@@ -1,1180 +1,888 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Separator } from "@/components/ui/separator"
 import {
-  Dna,
-  Coins,
-  TrendingUp,
-  Shield,
-  Zap,
-  Brain,
   Activity,
+  Zap,
+  TrendingUp,
   Users,
+  Code,
+  Brain,
   Lock,
-  Flame,
-  Target,
-  Bot,
-  Network,
-  Database,
+  Coins,
+  BarChart3,
   GitBranch,
   Play,
   Pause,
-  Plus,
-  ArrowUp,
-  Clock,
-  CheckCircle,
-  Star,
-  Wallet,
-  Vote,
-  Repeat,
+  RotateCcw,
+  MessageSquare,
+  Video,
+  Share2,
+  Eye,
+  Edit3,
+  Save,
+  UserPlus,
+  Merge,
+  GitMerge,
+  AlertTriangle,
+  X,
+  Send,
 } from "lucide-react"
 
-export default function DNALangAutonomousPlatform() {
-  const [currentPrice, setCurrentPrice] = useState(0.0847)
-  const [marketCap, setMarketCap] = useState(84.7)
-  const [evolutionRewards, setEvolutionRewards] = useState(1247.5)
-  const [stakingAPY, setStakingAPY] = useState(37.5)
-  const [autonomousActive, setAutonomousActive] = useState(true)
-  const [activeTab, setActiveTab] = useState("dashboard")
+// Mock collaboration data
+const mockCollaborators = [
+  {
+    id: 1,
+    name: "Alex Chen",
+    avatar: "/placeholder-user.jpg",
+    status: "online",
+    role: "Lead Developer",
+    currentTask: "Optimizing UserAuth gene",
+  },
+  {
+    id: 2,
+    name: "Sarah Kim",
+    avatar: "/placeholder-user.jpg",
+    status: "online",
+    role: "Security Expert",
+    currentTask: "Adding immune responses",
+  },
+  {
+    id: 3,
+    name: "Mike Johnson",
+    avatar: "/placeholder-user.jpg",
+    status: "away",
+    role: "Performance Engineer",
+    currentTask: "Database optimization",
+  },
+  {
+    id: 4,
+    name: "Lisa Wang",
+    avatar: "/placeholder-user.jpg",
+    status: "online",
+    role: "AI Specialist",
+    currentTask: "Evolution parameters",
+  },
+]
 
-  // Simulate real-time updates
+const mockMessages = [
+  {
+    id: 1,
+    user: "Alex Chen",
+    message: "Just pushed a new mutation to the UserAuth gene",
+    timestamp: "2 min ago",
+    type: "update",
+  },
+  {
+    id: 2,
+    user: "Sarah Kim",
+    message: "I see a potential security vulnerability in line 47",
+    timestamp: "5 min ago",
+    type: "warning",
+  },
+  {
+    id: 3,
+    user: "Mike Johnson",
+    message: "Performance improved by 23% after the latest optimization",
+    timestamp: "8 min ago",
+    type: "success",
+  },
+  {
+    id: 4,
+    user: "Lisa Wang",
+    message: "Evolution fitness reached 94.2% - should we increase complexity?",
+    timestamp: "12 min ago",
+    type: "question",
+  },
+]
+
+const mockConflicts = [
+  {
+    id: 1,
+    file: "user-auth.gene",
+    users: ["Alex Chen", "Sarah Kim"],
+    type: "merge",
+    description: "Both modified authentication logic",
+  },
+  { id: 2, file: "performance.gene", users: ["Mike Johnson"], type: "lock", description: "Currently being optimized" },
+]
+
+export default function DNALangCollaborativePlatform() {
+  const [currentTime, setCurrentTime] = useState(new Date())
+  const [tokenPrice, setTokenPrice] = useState(0.847)
+  const [isEvolutionActive, setIsEvolutionActive] = useState(true)
+  const [fitnessScore, setFitnessScore] = useState(87.3)
+  const [activeOrganisms, setActiveOrganisms] = useState(1247)
+  const [activeCollaborators, setActiveCollaborators] = useState(4)
+  const [newMessage, setNewMessage] = useState("")
+  const [selectedOrganism, setSelectedOrganism] = useState("ECommerceApp")
+  const [isCollaborating, setIsCollaborating] = useState(true)
+
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentPrice((prev) => prev + (Math.random() - 0.5) * 0.001)
-      setMarketCap((prev) => prev + (Math.random() - 0.5) * 2)
-      setEvolutionRewards((prev) => prev + Math.random() * 10)
-    }, 3000)
+    const timer = setInterval(() => {
+      setCurrentTime(new Date())
+      // Simulate real-time updates
+      setTokenPrice((prev) => prev + (Math.random() - 0.5) * 0.01)
+      setFitnessScore((prev) => Math.min(100, prev + (Math.random() - 0.4) * 0.5))
+      setActiveOrganisms((prev) => prev + Math.floor(Math.random() * 3))
+    }, 2000)
 
-    return () => clearInterval(interval)
+    return () => clearInterval(timer)
   }, [])
 
+  const sendMessage = () => {
+    if (newMessage.trim()) {
+      // In a real app, this would send to the collaboration server
+      console.log("Sending message:", newMessage)
+      setNewMessage("")
+    }
+  }
+
   const valuationMilestones = [
-    { value: 10, label: "Genesis", status: "completed", color: "bg-green-500" },
-    { value: 50, label: "Early Adoption", status: "current", color: "bg-blue-500" },
-    { value: 100, label: "Product-Market Fit", status: "upcoming", color: "bg-gray-400" },
-    { value: 250, label: "Scaling Phase", status: "upcoming", color: "bg-gray-400" },
-    { value: 500, label: "Market Leader", status: "upcoming", color: "bg-gray-400" },
-    { value: 750, label: "Unicorn Status", status: "upcoming", color: "bg-gray-400" },
-    { value: 1000, label: "Acquisition Target", status: "target", color: "bg-orange-500" },
+    { value: 10, label: "Genesis", status: "completed" },
+    { value: 50, label: "Early Adoption", status: "completed" },
+    { value: 100, label: "Product-Market Fit", status: "current" },
+    { value: 250, label: "Scaling Phase", status: "upcoming" },
+    { value: 500, label: "Market Leader", status: "upcoming" },
+    { value: 750, label: "Unicorn Status", status: "upcoming" },
+    { value: 1000, label: "Acquisition Target", status: "upcoming" },
   ]
 
+  const currentValuation = 84.7
+  const progressToNext = ((currentValuation - 50) / (100 - 50)) * 100
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-emerald-900 relative overflow-hidden">
-      {/* Enhanced 3D Background Animations */}
-      <div className="fixed inset-0 pointer-events-none">
-        {/* Autonomous DNA Strands */}
-        <div className="absolute top-10 left-10 animate-autonomous-float">
-          <div className="autonomous-dna-helix">
-            <div className="helix-strand autonomous-strand-1"></div>
-            <div className="helix-strand autonomous-strand-2"></div>
-            <div className="helix-core"></div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 text-white relative overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {/* DNA Helix Animation */}
+        <div className="absolute top-20 left-10 w-32 h-32 opacity-20">
+          <div className="animate-spin-slow">
+            <div className="w-full h-full border-4 border-cyan-400 rounded-full border-dashed"></div>
+            <div className="absolute top-2 left-2 w-28 h-28 border-4 border-green-400 rounded-full border-dotted animate-pulse"></div>
           </div>
         </div>
 
-        {/* Token Particles */}
-        <div className="token-particles">
-          {[...Array(15)].map((_, i) => (
-            <div
-              key={i}
-              className="token-particle"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 8}s`,
-                animationDuration: `${12 + Math.random() * 8}s`,
-              }}
-            />
-          ))}
-        </div>
+        {/* Floating Particles */}
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute w-2 h-2 bg-orange-400 rounded-full opacity-30 animate-float"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${3 + Math.random() * 4}s`,
+            }}
+          />
+        ))}
 
-        {/* Evolution Waves */}
-        <div className="evolution-waves">
-          <div className="wave wave-1"></div>
-          <div className="wave wave-2"></div>
-          <div className="wave wave-3"></div>
-        </div>
-
-        {/* Autonomous Indicators */}
-        <div className="absolute top-1/3 right-20 animate-pulse-glow">
-          <div className="autonomous-indicator">
-            <Bot className="h-8 w-8 text-cyan-400" />
-            <div className="indicator-pulse"></div>
+        {/* Collaboration Indicators */}
+        <div className="absolute top-1/3 right-20 opacity-30">
+          <div className="w-20 h-20 border-2 border-green-400 rounded-full animate-pulse">
+            <div className="w-full h-full flex items-center justify-center">
+              <Users className="w-8 h-8 text-green-400" />
+            </div>
           </div>
+        </div>
+
+        {/* Organic Shapes */}
+        <div className="absolute bottom-20 right-20 w-40 h-40 opacity-10">
+          <div className="w-full h-full bg-gradient-to-r from-cyan-400 to-green-400 rounded-full animate-pulse transform rotate-45"></div>
         </div>
       </div>
 
       {/* Header */}
-      <header className="relative z-50 border-b border-cyan-800/30 bg-black/20 backdrop-blur-md">
-        <div className="flex items-center justify-between px-6 py-4">
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-3">
-              <div className="relative">
-                <Dna className="h-8 w-8 text-cyan-400 animate-pulse" />
-                <div className="absolute inset-0 bg-cyan-400/20 rounded-full animate-ping"></div>
+      <header className="relative z-10 border-b border-slate-700/50 backdrop-blur-sm bg-slate-900/50">
+        <div className="container mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="w-10 h-10 bg-gradient-to-r from-cyan-400 to-green-400 rounded-lg flex items-center justify-center">
+                <Code className="w-6 h-6 text-slate-900" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-white">DNA-Lang</h1>
-                <div className="flex items-center space-x-2">
-                  <Badge className="bg-green-600/20 text-green-400 border-green-600/30 text-xs">Autonomous v1.7</Badge>
-                  <Badge className="bg-orange-600/20 text-orange-400 border-orange-600/30 text-xs">
-                    $DNA ${currentPrice.toFixed(4)}
-                  </Badge>
-                </div>
+                <h1 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 to-green-400 bg-clip-text text-transparent">
+                  DNA-Lang Collaborative Platform
+                </h1>
+                <p className="text-sm text-slate-400">Real-time Multi-Developer Evolution Engine v1.7</p>
               </div>
             </div>
-          </div>
-
-          <div className="flex items-center space-x-4">
-            <div className="hidden md:flex items-center space-x-4 text-sm">
-              <div className="flex items-center space-x-1">
-                <TrendingUp className="h-4 w-4 text-green-400" />
-                <span className="text-green-400">+12.4%</span>
-              </div>
-              <div className="flex items-center space-x-1">
-                <Users className="h-4 w-4 text-cyan-400" />
-                <span className="text-white">127K</span>
-              </div>
-              <div className="flex items-center space-x-1">
-                <Bot className="h-4 w-4 text-orange-400" />
-                <span className="text-orange-400">Active</span>
-              </div>
+            <div className="flex items-center space-x-4">
+              <Badge variant="outline" className="border-green-400 text-green-400">
+                <Users className="w-3 h-3 mr-1" />
+                {activeCollaborators} Active
+              </Badge>
+              <Badge variant="outline" className="border-orange-400 text-orange-400">
+                ${tokenPrice.toFixed(3)} DNA
+              </Badge>
+              <Button size="sm" variant="outline" className="border-cyan-400 text-cyan-400 bg-transparent">
+                <Video className="w-4 h-4 mr-2" />
+                Join Call
+              </Button>
             </div>
-            <Button className="bg-cyan-600 hover:bg-cyan-700">
-              <Wallet className="h-4 w-4 mr-2" />
-              Connect Wallet
-            </Button>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <div className="relative z-10">
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          {/* Tab Navigation */}
-          <div className="border-b border-cyan-800/30 bg-black/10 backdrop-blur-sm">
-            <div className="px-6">
-              <TabsList className="bg-transparent border-none">
-                <TabsTrigger
-                  value="dashboard"
-                  className="data-[state=active]:bg-cyan-600 data-[state=active]:text-white text-gray-300"
-                >
-                  <Activity className="h-4 w-4 mr-2" />
-                  Dashboard
-                </TabsTrigger>
-                <TabsTrigger
-                  value="tokenomics"
-                  className="data-[state=active]:bg-cyan-600 data-[state=active]:text-white text-gray-300"
-                >
-                  <Coins className="h-4 w-4 mr-2" />
-                  Tokenomics
-                </TabsTrigger>
-                <TabsTrigger
-                  value="autonomous"
-                  className="data-[state=active]:bg-cyan-600 data-[state=active]:text-white text-gray-300"
-                >
-                  <Bot className="h-4 w-4 mr-2" />
-                  Autonomous
-                </TabsTrigger>
-                <TabsTrigger
-                  value="evolution"
-                  className="data-[state=active]:bg-cyan-600 data-[state=active]:text-white text-gray-300"
-                >
-                  <GitBranch className="h-4 w-4 mr-2" />
-                  Evolution
-                </TabsTrigger>
-                <TabsTrigger
-                  value="governance"
-                  className="data-[state=active]:bg-cyan-600 data-[state=active]:text-white text-gray-300"
-                >
-                  <Vote className="h-4 w-4 mr-2" />
-                  Governance
-                </TabsTrigger>
+      <main className="relative z-10 container mx-auto px-6 py-8">
+        {/* Collaboration Status Bar */}
+        <div className="mb-6">
+          <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <div className="flex -space-x-2">
+                    {mockCollaborators.slice(0, 4).map((collaborator) => (
+                      <Avatar key={collaborator.id} className="border-2 border-slate-700 w-8 h-8">
+                        <AvatarImage src={collaborator.avatar || "/placeholder.svg"} />
+                        <AvatarFallback className="bg-gradient-to-r from-cyan-400 to-green-400 text-slate-900 text-xs">
+                          {collaborator.name
+                            .split(" ")
+                            .map((n) => n[0])
+                            .join("")}
+                        </AvatarFallback>
+                      </Avatar>
+                    ))}
+                  </div>
+                  <div>
+                    <div className="text-sm font-medium">Collaborative Session Active</div>
+                    <div className="text-xs text-slate-400">Working on: {selectedOrganism}</div>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Badge variant="outline" className="border-green-400 text-green-400">
+                    <Activity className="w-3 h-3 mr-1" />
+                    Live Sync
+                  </Badge>
+                  {mockConflicts.length > 0 && (
+                    <Badge variant="outline" className="border-orange-400 text-orange-400">
+                      <AlertTriangle className="w-3 h-3 mr-1" />
+                      {mockConflicts.length} Conflicts
+                    </Badge>
+                  )}
+                  <Button size="sm" variant="outline">
+                    <Share2 className="w-4 h-4 mr-2" />
+                    Invite
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Hero Stats */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+          <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-slate-400">Market Cap</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-cyan-400">${currentValuation.toFixed(1)}M</div>
+              <p className="text-xs text-green-400 flex items-center mt-1">
+                <TrendingUp className="w-3 h-3 mr-1" />
+                +8.5% to next milestone
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-slate-400">Active Organisms</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-green-400">{activeOrganisms.toLocaleString()}</div>
+              <p className="text-xs text-green-400 flex items-center mt-1">
+                <Users className="w-3 h-3 mr-1" />
+                127K+ developers
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-slate-400">Collaboration Score</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-orange-400">94.2%</div>
+              <p className="text-xs text-green-400 flex items-center mt-1">
+                <Brain className="w-3 h-3 mr-1" />
+                Real-time sync active
+              </p>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-sm font-medium text-slate-400">DNA Rewards</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold text-yellow-400">1,247</div>
+              <p className="text-xs text-green-400 flex items-center mt-1">
+                <Coins className="w-3 h-3 mr-1" />
+                Team mining active
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Main Dashboard */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Main Content Area */}
+          <div className="lg:col-span-2 space-y-6">
+            <Tabs defaultValue="collaboration" className="space-y-6">
+              <TabsList className="grid w-full grid-cols-4 bg-slate-800/50 border-slate-700">
+                <TabsTrigger value="collaboration">Collaboration</TabsTrigger>
+                <TabsTrigger value="evolution">Evolution</TabsTrigger>
+                <TabsTrigger value="organisms">Organisms</TabsTrigger>
+                <TabsTrigger value="conflicts">Conflicts</TabsTrigger>
               </TabsList>
-            </div>
+
+              <TabsContent value="collaboration" className="space-y-6">
+                {/* Live Code Editor */}
+                <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="flex items-center">
+                        <Code className="w-5 h-5 mr-2 text-cyan-400" />
+                        Collaborative Code Editor
+                      </CardTitle>
+                      <div className="flex items-center space-x-2">
+                        <Badge variant="outline" className="border-green-400 text-green-400">
+                          <Eye className="w-3 h-3 mr-1" />3 viewing
+                        </Badge>
+                        <Badge variant="outline" className="border-orange-400 text-orange-400">
+                          <Edit3 className="w-3 h-3 mr-1" />1 editing
+                        </Badge>
+                      </div>
+                    </div>
+                    <CardDescription>Real-time collaborative editing with conflict resolution</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {/* File Tabs */}
+                      <div className="flex space-x-2 border-b border-slate-600 pb-2">
+                        <Button size="sm" variant="ghost" className="text-cyan-400 border-b-2 border-cyan-400">
+                          user-auth.gene
+                        </Button>
+                        <Button size="sm" variant="ghost" className="text-slate-400">
+                          performance.gene
+                        </Button>
+                        <Button size="sm" variant="ghost" className="text-slate-400">
+                          security.gene
+                        </Button>
+                      </div>
+
+                      {/* Code Editor Area */}
+                      <div className="relative">
+                        <Textarea
+                          className="min-h-[300px] bg-slate-900/50 border-slate-600 text-green-400 font-mono text-sm"
+                          value={`gene UserAuth {
+  purpose: "Identity verification with real-time collaboration"
+  
+  implementation: {
+    strategy: jwt_with_refresh,
+    code: \`
+      async function auth(ctx) {
+        // Alex Chen is editing this section
+        const validation = await validateUser(ctx.token);
+        if (!validation.valid) {
+          throw new AuthError(validation.error);
+        }
+        
+        // Sarah Kim added security enhancement
+        const securityCheck = await checkSecurityThreats(ctx);
+        if (securityCheck.risk > 0.8) {
+          await logSecurityEvent(securityCheck);
+          throw new SecurityError("High risk detected");
+        }
+        
+        return { user: validation.user, session: ctx.session };
+      }
+    \`
+  }
+  
+  mutations: {
+    add_biometrics: \`
+      // Lisa Wang's AI-suggested mutation
+      const biometricResult = await verifyBiometric(ctx.biometric);
+      if (!biometricResult.match) throw new BiometricError();
+    \`,
+    
+    optimize_performance: \`
+      // Mike Johnson's performance optimization
+      const cached = await getFromCache(ctx.userId);
+      if (cached && !cached.expired) return cached.data;
+    \`
+  }
+  
+  immune_responses: {
+    brute_force: "rate_limit(); alert_security_team();",
+    suspicious_activity: "require_2fa(); log_incident();"
+  }
+}`}
+                          readOnly
+                        />
+
+                        {/* Live Cursors */}
+                        <div className="absolute top-4 right-4 flex space-x-2">
+                          <div className="flex items-center space-x-1 bg-green-400/20 px-2 py-1 rounded text-xs">
+                            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                            <span className="text-green-400">Alex Chen</span>
+                          </div>
+                          <div className="flex items-center space-x-1 bg-orange-400/20 px-2 py-1 rounded text-xs">
+                            <div className="w-2 h-2 bg-orange-400 rounded-full animate-pulse"></div>
+                            <span className="text-orange-400">Sarah Kim</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Collaboration Tools */}
+                      <div className="flex items-center justify-between pt-4 border-t border-slate-600">
+                        <div className="flex items-center space-x-2">
+                          <Button size="sm" variant="outline">
+                            <Save className="w-4 h-4 mr-2" />
+                            Save
+                          </Button>
+                          <Button size="sm" variant="outline">
+                            <GitMerge className="w-4 h-4 mr-2" />
+                            Merge
+                          </Button>
+                          <Button size="sm" variant="outline">
+                            <Share2 className="w-4 h-4 mr-2" />
+                            Share
+                          </Button>
+                        </div>
+                        <div className="text-xs text-slate-400">Last saved: 2 minutes ago by Alex Chen</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Team Activity */}
+                <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <Activity className="w-5 h-5 mr-2 text-green-400" />
+                      Team Activity Feed
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ScrollArea className="h-64">
+                      <div className="space-y-3">
+                        {mockMessages.map((message) => (
+                          <div key={message.id} className="flex items-start space-x-3 p-3 rounded-lg bg-slate-700/30">
+                            <Avatar className="w-8 h-8">
+                              <AvatarFallback className="bg-gradient-to-r from-cyan-400 to-green-400 text-slate-900 text-xs">
+                                {message.user
+                                  .split(" ")
+                                  .map((n) => n[0])
+                                  .join("")}
+                              </AvatarFallback>
+                            </Avatar>
+                            <div className="flex-1">
+                              <div className="flex items-center space-x-2">
+                                <span className="text-sm font-medium">{message.user}</span>
+                                <span className="text-xs text-slate-400">{message.timestamp}</span>
+                                <Badge
+                                  variant="outline"
+                                  className={`text-xs ${
+                                    message.type === "success"
+                                      ? "border-green-400 text-green-400"
+                                      : message.type === "warning"
+                                        ? "border-orange-400 text-orange-400"
+                                        : message.type === "question"
+                                          ? "border-blue-400 text-blue-400"
+                                          : "border-slate-400 text-slate-400"
+                                  }`}
+                                >
+                                  {message.type}
+                                </Badge>
+                              </div>
+                              <p className="text-sm text-slate-300 mt-1">{message.message}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </ScrollArea>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="evolution" className="space-y-6">
+                {/* Evolution Control */}
+                <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+                  <CardHeader>
+                    <CardTitle className="flex items-center justify-between">
+                      <span className="flex items-center">
+                        <GitBranch className="w-5 h-5 mr-2 text-cyan-400" />
+                        Collaborative Evolution Engine
+                      </span>
+                      <div className="flex space-x-2">
+                        <Button
+                          size="sm"
+                          variant={isEvolutionActive ? "default" : "outline"}
+                          onClick={() => setIsEvolutionActive(!isEvolutionActive)}
+                        >
+                          {isEvolutionActive ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+                        </Button>
+                        <Button size="sm" variant="outline">
+                          <RotateCcw className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-slate-400">Team Fitness Score</span>
+                        <span className="text-sm font-medium text-green-400">{fitnessScore.toFixed(1)}%</span>
+                      </div>
+                      <Progress value={fitnessScore} className="h-2" />
+
+                      <div className="grid grid-cols-4 gap-4 mt-4">
+                        <div className="text-center">
+                          <div className="text-lg font-bold text-cyan-400">Gen 247</div>
+                          <div className="text-xs text-slate-400">Current</div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-lg font-bold text-green-400">+23%</div>
+                          <div className="text-xs text-slate-400">Team Boost</div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-lg font-bold text-orange-400">4</div>
+                          <div className="text-xs text-slate-400">Contributors</div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-lg font-bold text-yellow-400">0.3s</div>
+                          <div className="text-xs text-slate-400">Sync Time</div>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Team Evolution Mining */}
+                <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <Zap className="w-5 h-5 mr-2 text-yellow-400" />
+                      Team Evolution Mining
+                    </CardTitle>
+                    <CardDescription>Collaborative rewards distribution</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <Alert className="border-yellow-400/20 bg-yellow-400/10">
+                        <Coins className="h-4 w-4 text-yellow-400" />
+                        <AlertDescription className="text-yellow-400">
+                          Team bonus: +50% DNA rewards for collaborative improvements
+                        </AlertDescription>
+                      </Alert>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <div className="text-sm text-slate-400">Team Pool</div>
+                          <div className="text-2xl font-bold text-yellow-400">1,847 DNA</div>
+                        </div>
+                        <div>
+                          <div className="text-sm text-slate-400">Your Share</div>
+                          <div className="text-2xl font-bold text-green-400">462 DNA</div>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="organisms" className="space-y-6">
+                {/* Collaborative Organisms */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {[
+                    { name: "ECommerceApp", fitness: 94.2, status: "collaborative", contributors: 4, mutations: 23 },
+                    { name: "SecurityAgent", fitness: 98.7, status: "review", contributors: 2, mutations: 45 },
+                    { name: "DataProcessor", fitness: 87.1, status: "collaborative", contributors: 3, mutations: 12 },
+                    { name: "APIGateway", fitness: 91.5, status: "locked", contributors: 1, mutations: 34 },
+                  ].map((organism, index) => (
+                    <Card key={index} className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+                      <CardHeader className="pb-3">
+                        <div className="flex items-center justify-between">
+                          <CardTitle className="text-lg">{organism.name}</CardTitle>
+                          <div className="flex items-center space-x-2">
+                            <Badge
+                              variant="outline"
+                              className={
+                                organism.status === "collaborative"
+                                  ? "border-green-400 text-green-400"
+                                  : organism.status === "review"
+                                    ? "border-orange-400 text-orange-400"
+                                    : organism.status === "locked"
+                                      ? "border-red-400 text-red-400"
+                                      : "border-blue-400 text-blue-400"
+                              }
+                            >
+                              {organism.status}
+                            </Badge>
+                            <div className="flex -space-x-1">
+                              {Array.from({ length: organism.contributors }).map((_, i) => (
+                                <div
+                                  key={i}
+                                  className="w-6 h-6 bg-gradient-to-r from-cyan-400 to-green-400 rounded-full border-2 border-slate-700 flex items-center justify-center text-xs text-slate-900 font-bold"
+                                >
+                                  {i + 1}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="space-y-3">
+                          <div>
+                            <div className="flex justify-between text-sm mb-1">
+                              <span className="text-slate-400">Team Fitness</span>
+                              <span className="font-medium">{organism.fitness}%</span>
+                            </div>
+                            <Progress value={organism.fitness} className="h-1" />
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span className="text-slate-400">Contributors</span>
+                            <span className="font-medium">{organism.contributors}</span>
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span className="text-slate-400">Mutations</span>
+                            <span className="font-medium">{organism.mutations}</span>
+                          </div>
+                          <Button size="sm" variant="outline" className="w-full bg-transparent">
+                            Join Collaboration
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </TabsContent>
+
+              <TabsContent value="conflicts" className="space-y-6">
+                {/* Merge Conflicts */}
+                <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <Merge className="w-5 h-5 mr-2 text-orange-400" />
+                      Merge Conflicts & Locks
+                    </CardTitle>
+                    <CardDescription>Resolve conflicts and manage file locks</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      {mockConflicts.map((conflict) => (
+                        <div key={conflict.id} className="p-4 rounded-lg bg-slate-700/30 border border-orange-400/30">
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center space-x-2">
+                              <AlertTriangle className="w-4 h-4 text-orange-400" />
+                              <span className="font-medium">{conflict.file}</span>
+                              <Badge variant="outline" className="border-orange-400 text-orange-400">
+                                {conflict.type}
+                              </Badge>
+                            </div>
+                            <div className="flex space-x-2">
+                              <Button size="sm" variant="outline">
+                                Resolve
+                              </Button>
+                              <Button size="sm" variant="outline">
+                                <X className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          </div>
+                          <p className="text-sm text-slate-400 mb-2">{conflict.description}</p>
+                          <div className="flex items-center space-x-2">
+                            <span className="text-xs text-slate-500">Involved:</span>
+                            {conflict.users.map((user, index) => (
+                              <Badge key={index} variant="outline" className="text-xs">
+                                {user}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            </Tabs>
           </div>
 
-          {/* Dashboard Tab */}
-          <TabsContent value="dashboard" className="p-6 space-y-6">
-            <DashboardView
-              currentPrice={currentPrice}
-              marketCap={marketCap}
-              evolutionRewards={evolutionRewards}
-              stakingAPY={stakingAPY}
-              valuationMilestones={valuationMilestones}
-            />
-          </TabsContent>
+          {/* Collaboration Sidebar */}
+          <div className="space-y-6">
+            {/* Active Collaborators */}
+            <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="flex items-center">
+                    <Users className="w-5 h-5 mr-2 text-green-400" />
+                    Team Members
+                  </CardTitle>
+                  <Button size="sm" variant="outline">
+                    <UserPlus className="w-4 h-4" />
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {mockCollaborators.map((collaborator) => (
+                    <div key={collaborator.id} className="flex items-center space-x-3 p-2 rounded-lg bg-slate-700/30">
+                      <div className="relative">
+                        <Avatar className="w-10 h-10">
+                          <AvatarImage src={collaborator.avatar || "/placeholder.svg"} />
+                          <AvatarFallback className="bg-gradient-to-r from-cyan-400 to-green-400 text-slate-900">
+                            {collaborator.name
+                              .split(" ")
+                              .map((n) => n[0])
+                              .join("")}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div
+                          className={`absolute -bottom-1 -right-1 w-3 h-3 rounded-full border-2 border-slate-700 ${
+                            collaborator.status === "online"
+                              ? "bg-green-400"
+                              : collaborator.status === "away"
+                                ? "bg-orange-400"
+                                : "bg-gray-400"
+                          }`}
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-sm font-medium truncate">{collaborator.name}</div>
+                        <div className="text-xs text-slate-400 truncate">{collaborator.role}</div>
+                        <div className="text-xs text-green-400 truncate">{collaborator.currentTask}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
 
-          {/* Tokenomics Tab */}
-          <TabsContent value="tokenomics" className="p-6 space-y-6">
-            <TokenomicsView
-              currentPrice={currentPrice}
-              marketCap={marketCap}
-              evolutionRewards={evolutionRewards}
-              stakingAPY={stakingAPY}
-            />
-          </TabsContent>
+            {/* Team Chat */}
+            <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <MessageSquare className="w-5 h-5 mr-2 text-cyan-400" />
+                  Team Chat
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ScrollArea className="h-64 mb-4">
+                  <div className="space-y-3">
+                    {mockMessages.slice(0, 6).map((message) => (
+                      <div key={message.id} className="text-sm">
+                        <div className="flex items-center space-x-2 mb-1">
+                          <span className="font-medium text-cyan-400">{message.user.split(" ")[0]}</span>
+                          <span className="text-xs text-slate-500">{message.timestamp}</span>
+                        </div>
+                        <p className="text-slate-300 text-xs">{message.message}</p>
+                      </div>
+                    ))}
+                  </div>
+                </ScrollArea>
+                <div className="flex space-x-2">
+                  <Input
+                    placeholder="Type a message..."
+                    value={newMessage}
+                    onChange={(e) => setNewMessage(e.target.value)}
+                    onKeyPress={(e) => e.key === "Enter" && sendMessage()}
+                    className="bg-slate-700/50 border-slate-600"
+                  />
+                  <Button size="sm" onClick={sendMessage}>
+                    <Send className="w-4 h-4" />
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
 
-          {/* Autonomous Tab */}
-          <TabsContent value="autonomous" className="p-6 space-y-6">
-            <AutonomousView autonomousActive={autonomousActive} setAutonomousActive={setAutonomousActive} />
-          </TabsContent>
+            {/* Collaboration Stats */}
+            <Card className="bg-slate-800/50 border-slate-700 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <BarChart3 className="w-5 h-5 mr-2 text-orange-400" />
+                  Session Stats
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  <div className="flex justify-between">
+                    <span className="text-sm text-slate-400">Session Duration</span>
+                    <span className="text-sm font-medium">2h 34m</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-sm text-slate-400">Code Changes</span>
+                    <span className="text-sm font-medium text-green-400">247</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-sm text-slate-400">Conflicts Resolved</span>
+                    <span className="text-sm font-medium text-orange-400">12</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-sm text-slate-400">Team Efficiency</span>
+                    <span className="text-sm font-medium text-cyan-400">94.2%</span>
+                  </div>
+                  <Separator />
+                  <div className="flex justify-between">
+                    <span className="text-sm font-medium">DNA Rewards Earned</span>
+                    <span className="text-sm font-bold text-yellow-400">+127 DNA</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </main>
 
-          {/* Evolution Tab */}
-          <TabsContent value="evolution" className="p-6 space-y-6">
-            <EvolutionView evolutionRewards={evolutionRewards} />
-          </TabsContent>
+      {/* Footer */}
+      <footer className="relative z-10 border-t border-slate-700/50 backdrop-blur-sm bg-slate-900/50 mt-12">
+        <div className="container mx-auto px-6 py-6">
+          <div className="flex items-center justify-between">
+            <div className="text-sm text-slate-400">© 2025 DNA-Lang Platform. Real-time Collaboration Engine v1.7</div>
+            <div className="flex items-center space-x-4">
+              <Badge variant="outline" className="border-green-400 text-green-400">
+                <Activity className="w-3 h-3 mr-1" />
+                Live Sync Active
+              </Badge>
+              <Badge variant="outline" className="border-cyan-400 text-cyan-400">
+                <Lock className="w-3 h-3 mr-1" />
+                End-to-End Encrypted
+              </Badge>
+            </div>
+          </div>
+        </div>
+      </footer>
 
-          {/* Governance Tab */}
-          <TabsContent value="governance" className="p-6 space-y-6">
-            <GovernanceView />
-          </TabsContent>
-        </Tabs>
-      </div>
-
-      {/* Enhanced Custom Styles */}
       <style jsx>{`
-        @keyframes autonomous-float {
-          0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
-          33% { transform: translateY(-30px) rotate(120deg) scale(1.1); }
-          66% { transform: translateY(-15px) rotate(240deg) scale(0.9); }
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotate(0deg); }
+          50% { transform: translateY(-20px) rotate(180deg); }
         }
-        
-        @keyframes pulse-glow {
-          0%, 100% { opacity: 0.6; transform: scale(1); }
-          50% { opacity: 1; transform: scale(1.2); }
+        @keyframes spin-slow {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
-        
-        @keyframes token-float {
-          0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-          10% { opacity: 1; }
-          90% { opacity: 1; }
-          100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        .animate-float {
+          animation: float 6s ease-in-out infinite;
         }
-        
-        @keyframes wave-pulse {
-          0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.3; }
-          50% { transform: scale(1.5) rotate(180deg); opacity: 0.1; }
-        }
-        
-        .animate-autonomous-float { animation: autonomous-float 12s ease-in-out infinite; }
-        .animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
-        
-        .autonomous-dna-helix {
-          width: 80px;
-          height: 240px;
-          position: relative;
-        }
-        
-        .helix-strand {
-          position: absolute;
-          width: 6px;
-          height: 100%;
-          border-radius: 3px;
-          transform-origin: center;
-        }
-        
-        .autonomous-strand-1 {
-          left: 25px;
-          background: linear-gradient(to bottom, #06b6d4, #10b981, #f59e0b);
-          animation: autonomous-float 6s linear infinite;
-        }
-        
-        .autonomous-strand-2 {
-          right: 25px;
-          background: linear-gradient(to bottom, #f59e0b, #10b981, #06b6d4);
-          animation: autonomous-float 6s linear infinite reverse;
-        }
-        
-        .helix-core {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -50%);
-          width: 12px;
-          height: 12px;
-          background: radial-gradient(circle, #06b6d4, #10b981);
-          border-radius: 50%;
-          animation: pulse-glow 2s ease-in-out infinite;
-        }
-        
-        .token-particle {
-          position: absolute;
-          width: 6px;
-          height: 6px;
-          background: linear-gradient(45deg, #f59e0b, #06b6d4);
-          border-radius: 50%;
-          animation: token-float linear infinite;
-        }
-        
-        .evolution-waves {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-        }
-        
-        .wave {
-          position: absolute;
-          border: 2px solid;
-          border-radius: 50%;
-          animation: wave-pulse ease-in-out infinite;
-        }
-        
-        .wave-1 {
-          width: 200px;
-          height: 200px;
-          border-color: rgba(6, 182, 212, 0.3);
-          animation-duration: 4s;
-        }
-        
-        .wave-2 {
-          width: 400px;
-          height: 400px;
-          border-color: rgba(16, 185, 129, 0.2);
-          animation-duration: 6s;
-          animation-delay: 1s;
-        }
-        
-        .wave-3 {
-          width: 600px;
-          height: 600px;
-          border-color: rgba(245, 158, 11, 0.1);
-          animation-duration: 8s;
-          animation-delay: 2s;
-        }
-        
-        .autonomous-indicator {
-          position: relative;
-          padding: 12px;
-          background: rgba(0, 0, 0, 0.3);
-          border: 1px solid rgba(6, 182, 212, 0.3);
-          border-radius: 50%;
-          backdrop-filter: blur(10px);
-        }
-        
-        .indicator-pulse {
-          position: absolute;
-          inset: -4px;
-          border: 2px solid rgba(6, 182, 212, 0.5);
-          border-radius: 50%;
-          animation: pulse-glow 2s ease-in-out infinite;
+        .animate-spin-slow {
+          animation: spin-slow 20s linear infinite;
         }
       `}</style>
-    </div>
-  )
-}
-
-function DashboardView({ currentPrice, marketCap, evolutionRewards, stakingAPY, valuationMilestones }: any) {
-  return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold text-white">Autonomous Evolution Dashboard</h2>
-        <div className="flex items-center space-x-2">
-          <Badge className="bg-green-600/20 text-green-400 border-green-600/30">
-            <Bot className="h-3 w-3 mr-1" />
-            Autonomous Active
-          </Badge>
-          <Badge className="bg-blue-600/20 text-blue-400 border-blue-600/30">127K Developers</Badge>
-        </div>
-      </div>
-
-      {/* Key Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <Card className="bg-black/30 border-cyan-800/50 backdrop-blur-sm">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-400">DNA Token Price</p>
-                <p className="text-2xl font-bold text-cyan-400">${currentPrice.toFixed(4)}</p>
-              </div>
-              <Coins className="h-8 w-8 text-cyan-400" />
-            </div>
-            <div className="mt-2 flex items-center text-sm">
-              <ArrowUp className="h-4 w-4 text-green-400 mr-1" />
-              <span className="text-green-400">+12.4%</span>
-              <span className="text-gray-400 ml-1">24h</span>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-black/30 border-green-800/50 backdrop-blur-sm">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-400">Market Cap</p>
-                <p className="text-2xl font-bold text-green-400">${marketCap.toFixed(1)}M</p>
-              </div>
-              <TrendingUp className="h-8 w-8 text-green-400" />
-            </div>
-            <div className="mt-2 flex items-center text-sm">
-              <Target className="h-4 w-4 text-orange-400 mr-1" />
-              <span className="text-orange-400">8.5%</span>
-              <span className="text-gray-400 ml-1">to $100M</span>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-black/30 border-orange-800/50 backdrop-blur-sm">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-400">Evolution Rewards</p>
-                <p className="text-2xl font-bold text-orange-400">{evolutionRewards.toFixed(0)}</p>
-              </div>
-              <Zap className="h-8 w-8 text-orange-400" />
-            </div>
-            <div className="mt-2 flex items-center text-sm">
-              <Activity className="h-4 w-4 text-green-400 mr-1" />
-              <span className="text-green-400">+15.2%</span>
-              <span className="text-gray-400 ml-1">this week</span>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-black/30 border-blue-800/50 backdrop-blur-sm">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-gray-400">Staking APY</p>
-                <p className="text-2xl font-bold text-blue-400">{stakingAPY.toFixed(1)}%</p>
-              </div>
-              <Lock className="h-8 w-8 text-blue-400" />
-            </div>
-            <div className="mt-2 flex items-center text-sm">
-              <Clock className="h-4 w-4 text-blue-400 mr-1" />
-              <span className="text-blue-400">180 days</span>
-              <span className="text-gray-400 ml-1">lock period</span>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Valuation Path to $1B */}
-      <Card className="bg-black/30 border-cyan-800/50 backdrop-blur-sm">
-        <CardHeader>
-          <CardTitle className="text-white flex items-center">
-            <Target className="h-5 w-5 mr-2 text-cyan-400" />
-            Path to $1B Valuation
-          </CardTitle>
-          <CardDescription className="text-gray-300">
-            Current progress: ${marketCap.toFixed(1)}M / $1,000M ({((marketCap / 1000) * 100).toFixed(1)}%)
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <Progress value={(marketCap / 1000) * 100} className="h-3" />
-            <div className="grid grid-cols-1 md:grid-cols-7 gap-3">
-              {valuationMilestones.map((milestone, index) => (
-                <div
-                  key={index}
-                  className={`p-3 rounded-lg border text-center ${
-                    milestone.status === "completed"
-                      ? "bg-green-900/20 border-green-600/30"
-                      : milestone.status === "current"
-                        ? "bg-blue-900/20 border-blue-600/30"
-                        : milestone.status === "target"
-                          ? "bg-orange-900/20 border-orange-600/30"
-                          : "bg-gray-900/20 border-gray-600/30"
-                  }`}
-                >
-                  <div
-                    className={`text-lg font-bold ${
-                      milestone.status === "completed"
-                        ? "text-green-400"
-                        : milestone.status === "current"
-                          ? "text-blue-400"
-                          : milestone.status === "target"
-                            ? "text-orange-400"
-                            : "text-gray-400"
-                    }`}
-                  >
-                    ${milestone.value}M
-                  </div>
-                  <div className="text-xs text-gray-400 mt-1">{milestone.label}</div>
-                  {milestone.status === "completed" && <CheckCircle className="h-4 w-4 text-green-400 mx-auto mt-1" />}
-                  {milestone.status === "current" && <Activity className="h-4 w-4 text-blue-400 mx-auto mt-1" />}
-                  {milestone.status === "target" && <Star className="h-4 w-4 text-orange-400 mx-auto mt-1" />}
-                </div>
-              ))}
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Autonomous Status */}
-      <div className="grid lg:grid-cols-2 gap-6">
-        <Card className="bg-black/30 border-green-800/50 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center">
-              <Bot className="h-5 w-5 mr-2 text-green-400" />
-              Autonomous Systems Status
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex items-center justify-between p-3 rounded-lg bg-black/20">
-              <div className="flex items-center space-x-3">
-                <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse" />
-                <span className="text-white">Evolution Engine</span>
-              </div>
-              <Badge className="bg-green-600/20 text-green-400 border-green-600/30">Active</Badge>
-            </div>
-            <div className="flex items-center justify-between p-3 rounded-lg bg-black/20">
-              <div className="flex items-center space-x-3">
-                <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse" />
-                <span className="text-white">Security Analyzer</span>
-              </div>
-              <Badge className="bg-green-600/20 text-green-400 border-green-600/30">Monitoring</Badge>
-            </div>
-            <div className="flex items-center justify-between p-3 rounded-lg bg-black/20">
-              <div className="flex items-center space-x-3">
-                <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse" />
-                <span className="text-white">Performance Optimizer</span>
-              </div>
-              <Badge className="bg-green-600/20 text-green-400 border-green-600/30">Optimizing</Badge>
-            </div>
-            <div className="flex items-center justify-between p-3 rounded-lg bg-black/20">
-              <div className="flex items-center space-x-3">
-                <div className="w-3 h-3 rounded-full bg-orange-400 animate-pulse" />
-                <span className="text-white">Documentation Generator</span>
-              </div>
-              <Badge className="bg-orange-600/20 text-orange-400 border-orange-600/30">Updating</Badge>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-black/30 border-orange-800/50 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center">
-              <Activity className="h-5 w-5 mr-2 text-orange-400" />
-              Recent Autonomous Actions
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <div className="flex items-center space-x-3 p-3 rounded-lg bg-black/20">
-              <Shield className="h-4 w-4 text-green-400" />
-              <div className="flex-1">
-                <p className="text-white text-sm">Patched security vulnerability in UserAuth gene</p>
-                <p className="text-xs text-gray-400">2 minutes ago</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-3 p-3 rounded-lg bg-black/20">
-              <Zap className="h-4 w-4 text-orange-400" />
-              <div className="flex-1">
-                <p className="text-white text-sm">Optimized database queries (+23% performance)</p>
-                <p className="text-xs text-gray-400">8 minutes ago</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-3 p-3 rounded-lg bg-black/20">
-              <Brain className="h-4 w-4 text-cyan-400" />
-              <div className="flex-1">
-                <p className="text-white text-sm">Generated new caching strategy feature</p>
-                <p className="text-xs text-gray-400">15 minutes ago</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
-  )
-}
-
-function TokenomicsView({ currentPrice, marketCap, evolutionRewards, stakingAPY }: any) {
-  return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold text-white">DNA Token Economics</h2>
-        <Badge className="bg-orange-600/20 text-orange-400 border-orange-600/30">Proof-of-Evolution (PoE)</Badge>
-      </div>
-
-      {/* Token Distribution */}
-      <div className="grid lg:grid-cols-2 gap-6">
-        <Card className="bg-black/30 border-cyan-800/50 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center">
-              <Coins className="h-5 w-5 mr-2 text-cyan-400" />
-              Token Distribution
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-gray-300">Evolution Mining (30%)</span>
-                <span className="text-cyan-400 font-semibold">300M DNA</span>
-              </div>
-              <Progress value={30} className="h-2" />
-            </div>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-gray-300">Treasury/DAO (40%)</span>
-                <span className="text-green-400 font-semibold">400M DNA</span>
-              </div>
-              <Progress value={40} className="h-2" />
-            </div>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-gray-300">Team (15%)</span>
-                <span className="text-orange-400 font-semibold">150M DNA</span>
-              </div>
-              <Progress value={15} className="h-2" />
-            </div>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-gray-300">Ecosystem (10%)</span>
-                <span className="text-blue-400 font-semibold">100M DNA</span>
-              </div>
-              <Progress value={10} className="h-2" />
-            </div>
-            <div className="space-y-3">
-              <div className="flex justify-between items-center">
-                <span className="text-gray-300">Investors (5%)</span>
-                <span className="text-red-400 font-semibold">50M DNA</span>
-              </div>
-              <Progress value={5} className="h-2" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-black/30 border-green-800/50 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center">
-              <Lock className="h-5 w-5 mr-2 text-green-400" />
-              Staking Tiers
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="p-4 rounded-lg bg-black/20 border border-cyan-600/30">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-cyan-400 font-semibold">30 Days</span>
-                <span className="text-cyan-400">18% APY</span>
-              </div>
-              <div className="text-sm text-gray-400">1.2x Governance Power</div>
-            </div>
-            <div className="p-4 rounded-lg bg-black/20 border border-green-600/30">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-green-400 font-semibold">90 Days</span>
-                <span className="text-green-400">22.5% APY</span>
-              </div>
-              <div className="text-sm text-gray-400">1.5x Governance Power</div>
-            </div>
-            <div className="p-4 rounded-lg bg-black/20 border border-orange-600/30">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-orange-400 font-semibold">180 Days</span>
-                <span className="text-orange-400">37.5% APY</span>
-              </div>
-              <div className="text-sm text-gray-400">2.5x Governance Power</div>
-            </div>
-            <div className="p-4 rounded-lg bg-black/20 border border-red-600/30">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-red-400 font-semibold">365 Days</span>
-                <span className="text-red-400">60% APY</span>
-              </div>
-              <div className="text-sm text-gray-400">4.0x Governance Power</div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Evolution Mining */}
-      <Card className="bg-black/30 border-orange-800/50 backdrop-blur-sm">
-        <CardHeader>
-          <CardTitle className="text-white flex items-center">
-            <Zap className="h-5 w-5 mr-2 text-orange-400" />
-            Evolution Mining Rewards
-          </CardTitle>
-          <CardDescription className="text-gray-300">
-            Earn DNA tokens by improving organism fitness through evolution
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="text-center p-4 rounded-lg bg-black/20">
-              <div className="text-2xl font-bold text-orange-400 mb-2">Base Reward</div>
-              <div className="text-gray-300">100 DNA per fitness improvement</div>
-            </div>
-            <div className="text-center p-4 rounded-lg bg-black/20">
-              <div className="text-2xl font-bold text-green-400 mb-2">Multipliers</div>
-              <div className="text-sm text-gray-300 space-y-1">
-                <div>Revenue: 2x</div>
-                <div>Scalability: 5x</div>
-                <div>Innovation: 5x</div>
-              </div>
-            </div>
-            <div className="text-center p-4 rounded-lg bg-black/20">
-              <div className="text-2xl font-bold text-cyan-400 mb-2">Halving</div>
-              <div className="text-gray-300">Every 100 generations</div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Deflationary Mechanics */}
-      <div className="grid lg:grid-cols-2 gap-6">
-        <Card className="bg-black/30 border-red-800/50 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center">
-              <Flame className="h-5 w-5 mr-2 text-red-400" />
-              Token Burns
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex justify-between items-center p-3 rounded-lg bg-black/20">
-              <span className="text-gray-300">Transaction Burns (0.1%)</span>
-              <span className="text-red-400 font-semibold">12.5K DNA</span>
-            </div>
-            <div className="flex justify-between items-center p-3 rounded-lg bg-black/20">
-              <span className="text-gray-300">Failed Mutation Burns</span>
-              <span className="text-red-400 font-semibold">8.2K DNA</span>
-            </div>
-            <div className="flex justify-between items-center p-3 rounded-lg bg-black/20">
-              <span className="text-gray-300">Buyback & Burn</span>
-              <span className="text-red-400 font-semibold">25.1K DNA</span>
-            </div>
-            <div className="border-t border-gray-600 pt-3">
-              <div className="flex justify-between items-center">
-                <span className="text-white font-semibold">Total Burned</span>
-                <span className="text-red-400 font-bold text-lg">45.8K DNA</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-black/30 border-blue-800/50 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center">
-              <Users className="h-5 w-5 mr-2 text-blue-400" />
-              Revenue Sharing
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="text-center p-4 rounded-lg bg-black/20">
-              <div className="text-2xl font-bold text-blue-400 mb-2">Weekly Distribution</div>
-              <div className="text-gray-300">15,247 DNA to stakers</div>
-            </div>
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-400">Platform Revenue</span>
-                <span className="text-green-400">$127K</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-400">Staker Share (60%)</span>
-                <span className="text-blue-400">$76.2K</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-400">Treasury (40%)</span>
-                <span className="text-orange-400">$50.8K</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
-  )
-}
-
-function AutonomousView({ autonomousActive, setAutonomousActive }: any) {
-  return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold text-white">Autonomous Evolution Platform</h2>
-        <div className="flex items-center space-x-3">
-          <Badge
-            className={
-              autonomousActive
-                ? "bg-green-600/20 text-green-400 border-green-600/30"
-                : "bg-red-600/20 text-red-400 border-red-600/30"
-            }
-          >
-            {autonomousActive ? "Active" : "Inactive"}
-          </Badge>
-          <Button
-            onClick={() => setAutonomousActive(!autonomousActive)}
-            className={autonomousActive ? "bg-red-600 hover:bg-red-700" : "bg-green-600 hover:bg-green-700"}
-          >
-            {autonomousActive ? <Pause className="h-4 w-4 mr-2" /> : <Play className="h-4 w-4 mr-2" />}
-            {autonomousActive ? "Pause" : "Start"}
-          </Button>
-        </div>
-      </div>
-
-      {/* Autonomous Capabilities */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <Card className="bg-black/30 border-green-800/50 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center">
-              <Brain className="h-5 w-5 mr-2 text-green-400" />
-              Self-Improving
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-300">Monthly Improvement</span>
-                <span className="text-green-400 font-semibold">+10%</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-300">Last Optimization</span>
-                <span className="text-gray-400">2 hours ago</span>
-              </div>
-              <Progress value={87} className="h-2" />
-              <div className="text-sm text-gray-400">Performance Score: 87/100</div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-black/30 border-cyan-800/50 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center">
-              <Shield className="h-5 w-5 mr-2 text-cyan-400" />
-              Self-Healing
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-300">Recovery Time</span>
-                <span className="text-cyan-400 font-semibold">{"<1s"}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-300">Issues Resolved</span>
-                <span className="text-green-400">247</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-300">Success Rate</span>
-                <span className="text-green-400">99.2%</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-black/30 border-orange-800/50 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center">
-              <Database className="h-5 w-5 mr-2 text-orange-400" />
-              Self-Documenting
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-300">Documentation Coverage</span>
-                <span className="text-orange-400 font-semibold">100%</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-300">Last Update</span>
-                <span className="text-gray-400">Real-time</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-300">Languages</span>
-                <span className="text-orange-400">12</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-black/30 border-blue-800/50 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center">
-              <Network className="h-5 w-5 mr-2 text-blue-400" />
-              Self-Scaling
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-300">Capacity</span>
-                <span className="text-blue-400 font-semibold">Infinite</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-300">Current Load</span>
-                <span className="text-green-400">23%</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-300">Auto-scaling Events</span>
-                <span className="text-blue-400">1,247</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-black/30 border-red-800/50 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center">
-              <Lock className="h-5 w-5 mr-2 text-red-400" />
-              Self-Securing
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-300">Security Level</span>
-                <span className="text-red-400 font-semibold">Quantum</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-300">Threats Blocked</span>
-                <span className="text-green-400">15,247</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-300">Zero-day Response</span>
-                <span className="text-red-400">Instant</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-black/30 border-yellow-800/50 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center">
-              <Repeat className="h-5 w-5 mr-2 text-yellow-400" />
-              Self-Testing
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-300">Test Coverage</span>
-                <span className="text-yellow-400 font-semibold">100%</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-300">Tests Generated</span>
-                <span className="text-green-400">12,547</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-300">Pass Rate</span>
-                <span className="text-green-400">99.8%</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Autonomous Decision Log */}
-      <Card className="bg-black/30 border-cyan-800/50 backdrop-blur-sm">
-        <CardHeader>
-          <CardTitle className="text-white flex items-center">
-            <Activity className="h-5 w-5 mr-2 text-cyan-400" />
-            Autonomous Decision Log
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-3 max-h-64 overflow-y-auto">
-            <div className="flex items-center space-x-3 p-3 rounded-lg bg-black/20">
-              <div className="w-2 h-2 rounded-full bg-green-400"></div>
-              <div className="flex-1">
-                <p className="text-white text-sm">Optimized database query performance (+23%)</p>
-                <p className="text-xs text-gray-400">Decision confidence: 94% • 2 minutes ago</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-3 p-3 rounded-lg bg-black/20">
-              <div className="w-2 h-2 rounded-full bg-orange-400"></div>
-              <div className="flex-1">
-                <p className="text-white text-sm">Applied security patch to UserAuth gene</p>
-                <p className="text-xs text-gray-400">Decision confidence: 98% • 5 minutes ago</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-3 p-3 rounded-lg bg-black/20">
-              <div className="w-2 h-2 rounded-full bg-cyan-400"></div>
-              <div className="flex-1">
-                <p className="text-white text-sm">Generated new caching strategy feature</p>
-                <p className="text-xs text-gray-400">Decision confidence: 87% • 12 minutes ago</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-3 p-3 rounded-lg bg-black/20">
-              <div className="w-2 h-2 rounded-full bg-blue-400"></div>
-              <div className="flex-1">
-                <p className="text-white text-sm">Scaled infrastructure to handle increased load</p>
-                <p className="text-xs text-gray-400">Decision confidence: 91% • 18 minutes ago</p>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-    </div>
-  )
-}
-
-function EvolutionView({ evolutionRewards }: any) {
-  return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold text-white">Evolution Mining</h2>
-        <Button className="bg-orange-600 hover:bg-orange-700">
-          <Zap className="h-4 w-4 mr-2" />
-          Start Evolution
-        </Button>
-      </div>
-
-      <div className="grid lg:grid-cols-2 gap-6">
-        <Card className="bg-black/30 border-orange-800/50 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center">
-              <Zap className="h-5 w-5 mr-2 text-orange-400" />
-              Your Evolution Rewards
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="text-center p-6 rounded-lg bg-black/20">
-              <div className="text-3xl font-bold text-orange-400 mb-2">{evolutionRewards.toFixed(0)}</div>
-              <div className="text-gray-300">DNA Tokens Earned</div>
-            </div>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-300">This Week</span>
-                <span className="text-green-400">+247 DNA</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-300">Best Organism</span>
-                <span className="text-cyan-400">ECommerceApp</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-300">Fitness Improvement</span>
-                <span className="text-orange-400">+15.2%</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-black/30 border-green-800/50 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center">
-              <TrendingUp className="h-5 w-5 mr-2 text-green-400" />
-              Evolution Leaderboard
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              <div className="flex items-center justify-between p-3 rounded-lg bg-black/20">
-                <div className="flex items-center space-x-3">
-                  <Badge className="bg-yellow-600/20 text-yellow-400 border-yellow-600/30">1</Badge>
-                  <span className="text-white">CryptoTrader</span>
-                </div>
-                <span className="text-green-400 font-semibold">2,847 DNA</span>
-              </div>
-              <div className="flex items-center justify-between p-3 rounded-lg bg-black/20">
-                <div className="flex items-center space-x-3">
-                  <Badge className="bg-gray-600/20 text-gray-400 border-gray-600/30">2</Badge>
-                  <span className="text-white">AIOptimizer</span>
-                </div>
-                <span className="text-green-400 font-semibold">2,156 DNA</span>
-              </div>
-              <div className="flex items-center justify-between p-3 rounded-lg bg-black/20">
-                <div className="flex items-center space-x-3">
-                  <Badge className="bg-orange-600/20 text-orange-400 border-orange-600/30">3</Badge>
-                  <span className="text-white">SecurityGuard</span>
-                </div>
-                <span className="text-green-400 font-semibold">1,923 DNA</span>
-              </div>
-              <div className="flex items-center justify-between p-3 rounded-lg bg-cyan-900/20 border border-cyan-600/30">
-                <div className="flex items-center space-x-3">
-                  <Badge className="bg-cyan-600/20 text-cyan-400 border-cyan-600/30">7</Badge>
-                  <span className="text-cyan-400">You</span>
-                </div>
-                <span className="text-cyan-400 font-semibold">{evolutionRewards.toFixed(0)} DNA</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
-  )
-}
-
-function GovernanceView() {
-  return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold text-white">DAO Governance</h2>
-        <Button className="bg-cyan-600 hover:bg-cyan-700">
-          <Plus className="h-4 w-4 mr-2" />
-          Create Proposal
-        </Button>
-      </div>
-
-      <div className="grid lg:grid-cols-2 gap-6">
-        <Card className="bg-black/30 border-cyan-800/50 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center">
-              <Vote className="h-5 w-5 mr-2 text-cyan-400" />
-              Active Proposals
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="p-4 rounded-lg bg-black/20 border border-green-600/30">
-              <div className="flex justify-between items-start mb-3">
-                <h4 className="text-white font-semibold">Increase Evolution Rewards</h4>
-                <Badge className="bg-green-600/20 text-green-400 border-green-600/30">Active</Badge>
-              </div>
-              <p className="text-sm text-gray-300 mb-3">
-                Proposal to increase base evolution mining rewards by 25% to incentivize more developers.
-              </p>
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">For: 67.3%</span>
-                  <span className="text-gray-400">Against: 32.7%</span>
-                </div>
-                <Progress value={67.3} className="h-2" />
-                <div className="text-xs text-gray-400">Ends in 2 days • 15.2M DNA voted</div>
-              </div>
-            </div>
-
-            <div className="p-4 rounded-lg bg-black/20 border border-orange-600/30">
-              <div className="flex justify-between items-start mb-3">
-                <h4 className="text-white font-semibold">New Security Features</h4>
-                <Badge className="bg-orange-600/20 text-orange-400 border-orange-600/30">Voting</Badge>
-              </div>
-              <p className="text-sm text-gray-300 mb-3">
-                Add quantum-resistant encryption to all organism communications.
-              </p>
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">For: 84.1%</span>
-                  <span className="text-gray-400">Against: 15.9%</span>
-                </div>
-                <Progress value={84.1} className="h-2" />
-                <div className="text-xs text-gray-400">Ends in 5 days • 8.7M DNA voted</div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-black/30 border-green-800/50 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="text-white flex items-center">
-              <Users className="h-5 w-5 mr-2 text-green-400" />
-              Your Governance Power
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="text-center p-6 rounded-lg bg-black/20">
-              <div className="text-3xl font-bold text-green-400 mb-2">2.5x</div>
-              <div className="text-gray-300">Voting Multiplier</div>
-              <div className="text-sm text-gray-400 mt-1">From 180-day staking</div>
-            </div>
-            <div className="space-y-3">
-              <div className="flex justify-between">
-                <span className="text-gray-300">Staked DNA</span>
-                <span className="text-green-400">12,500 DNA</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-300">Voting Power</span>
-                <span className="text-green-400">31,250 votes</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-300">Proposals Created</span>
-                <span className="text-cyan-400">3</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-300">Participation Rate</span>
-                <span className="text-orange-400">87%</span>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
     </div>
   )
 }
