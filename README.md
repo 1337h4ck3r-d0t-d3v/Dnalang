@@ -48,7 +48,7 @@ We have successfully implemented the **Genomic Twin concept** as requested, crea
 - **Reality Synthesis**: Bridge between digital genetics and physical manifestation
 
 ### **Advanced DNA-Lang Capabilities**
-```dna
+\`\`\`dna
 organism GenomicTwinPlatform {
     dna {
         domain: "genomic_digital_twin"
@@ -66,7 +66,7 @@ organism GenomicTwinPlatform {
         consciousness_monitor: ConsciousnessMonitorAgent(ethics: "asimov_plus_extended")
     }
 }
-```
+\`\`\`
 
 ### **Quantum-Enhanced Evolution**
 - **Quantum Genetic Memory**: Infinite storage with quantum retrieval
