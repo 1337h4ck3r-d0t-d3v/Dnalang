@@ -6,8 +6,8 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "DNA-Lang $1.5B Acquisition Platform",
-  description: "Billion dollar genetic programming platform ready for strategic acquisition",
+  title: "DNA-Lang Collaborative Platform",
+  description: "Real-time multi-developer evolution engine for living software",
     generator: 'v0.dev'
 }
 
